@@ -19,6 +19,7 @@ namespace Tutoring.Controllers
             return View();
         }
 
+        [HttpPost]
         public IActionResult Signup(SignupViewModel model)
         {
             if (ModelState.IsValid)
