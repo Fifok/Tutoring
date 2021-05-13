@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Tutoring.Models
 {
-    public class SigninViewModel
+    public class SignupViewModel
     {
         public string Firstname { get; set; }
         public string Lastname { get; set; }

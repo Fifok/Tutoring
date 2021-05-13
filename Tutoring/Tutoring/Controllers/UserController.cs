@@ -14,12 +14,12 @@ namespace Tutoring.Controllers
             return View();
         }
 
-        public IActionResult Signin()
+        public IActionResult Signup()
         {
             return View();
         }
 
-        public IActionResult Signin(SigninViewModel model)
+        public IActionResult Signup(SignupViewModel model)
         {
             if (ModelState.IsValid)
             {
