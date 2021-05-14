@@ -33,7 +33,16 @@ namespace Tutoring.Controllers
         {
             if (ModelState.IsValid)
             {
-                return Ok();
+                var newUser = new User
+                {
+                    Firstname = model.Firstname,
+                    Lastname = model.Lastname,
+                    Nickname = model.Nickname,
+                    Email = model.Email,
+                    Password = model.Password
+                };
+                _userRepository.Add(newUser);
+                return Ok(newUser);
             }
 
             return BadRequest(ModelState);
