@@ -9,24 +9,29 @@ namespace TutoringLib.Repositories
 {
     public class MockUserRepository : IRepository<User>
     {
-        public void Add(User model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public User GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
+        private ICollection<User> _users = new List<User>();
         public User GetById(int id)
         {
             throw new NotImplementedException();
         }
+        public IEnumerable<User> GetAll()
+        {
+            return _users.ToList();
+        } 
+        
+        public void Add(User model)
+        {
+            _users.Add(model);
+        }
 
         public void Remove(User model)
         {
-            throw new NotImplementedException();
+            _users.Remove(model);
+        }
+
+        public void Update(User model)
+        {
+            return new NotImplementedException();
         }
     }
 }
