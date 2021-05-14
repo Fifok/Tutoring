@@ -10,7 +10,7 @@ namespace TutoringLib.Repositories
     public interface IRepository<T>
     {
         T GetById(int id);
-        T GetAll();
+        IEnumerable<T> GetAll();
         void Add(T model);
         void Remove(T model);
     }
