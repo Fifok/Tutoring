@@ -12,6 +12,7 @@ namespace TutoringLib.Repositories
         T GetById(int id);
         IEnumerable<T> GetAll();
         void Add(T model);
+        void Update(T model);
         void Remove(T model);
     }
 }
