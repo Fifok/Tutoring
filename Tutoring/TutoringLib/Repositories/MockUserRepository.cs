@@ -12,7 +12,7 @@ namespace TutoringLib.Repositories
         private ICollection<User> _users = new List<User>();
         public User GetById(int id)
         {
-            throw new NotImplementedException();
+            return _users.FirstOrDefault(x => x.Id == id);
         }
         public IEnumerable<User> GetAll()
         {
@@ -31,7 +31,12 @@ namespace TutoringLib.Repositories
 
         public void Update(User model)
         {
-
+            var oldUser = _users.FirstOrDefault(x => x.Id == model.Id);
+            if(oldUser != null)
+            {
+                _users.Remove(oldUser);
+                _users.Add(model);
+            }
         }
     }
 }
