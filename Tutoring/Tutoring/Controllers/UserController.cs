@@ -47,5 +47,21 @@ namespace Tutoring.Controllers
 
             return BadRequest(ModelState);
         }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return Ok(model);
+            }
+
+            return BadRequest();
+        }
     }
 }
