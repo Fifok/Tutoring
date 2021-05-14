@@ -21,6 +21,7 @@ namespace TutoringLib.Repositories
         
         public void Add(User model)
         {
+            model.Id = _users.Max(x => x.Id)+1;
             _users.Add(model);
         }
 
