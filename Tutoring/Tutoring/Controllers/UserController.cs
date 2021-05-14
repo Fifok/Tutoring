@@ -20,7 +20,7 @@ namespace Tutoring.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return Ok(_userRepository.GetAll());
         }
 
         public IActionResult Signup()
