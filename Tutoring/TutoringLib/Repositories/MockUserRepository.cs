@@ -31,7 +31,7 @@ namespace TutoringLib.Repositories
 
         public void Update(User model)
         {
-            return new NotImplementedException();
+
         }
     }
 }
