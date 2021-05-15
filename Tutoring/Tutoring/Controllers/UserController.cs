@@ -20,7 +20,14 @@ namespace Tutoring.Controllers
 
         public IActionResult Index()
         {
-            return Ok(_userRepository.GetAll());
+            var users = _userRepository.GetAll().Select(x => new UserIndexViewModel
+            {
+                Fullname = x.Fullname,
+                Birthdate = x.Birthdate,
+                Age = x.Age
+            });
+
+            return View(users);
         }
 
         public IActionResult Signup()
