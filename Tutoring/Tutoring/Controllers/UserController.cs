@@ -49,7 +49,7 @@ namespace Tutoring.Controllers
                     Password = model.Password
                 };
                 _userRepository.Add(newUser);
-                return Ok(newUser);
+                return RedirectToAction(nameof(Index));
             }
 
             return BadRequest(ModelState);
@@ -65,7 +65,7 @@ namespace Tutoring.Controllers
         {
             if (ModelState.IsValid)
             {
-                return Ok(model);
+                return RedirectToAction(nameof(Index));
             }
 
             return BadRequest();
