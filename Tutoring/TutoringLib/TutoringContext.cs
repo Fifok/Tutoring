@@ -16,5 +16,16 @@ namespace TutoringLib
         public TutoringContext(DbContextOptions<TutoringContext> options) : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>().Property(x => x.Firstname).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Lastname).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Email).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.Password).IsRequired();
+
+        }
     }
 }
