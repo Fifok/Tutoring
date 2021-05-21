@@ -30,5 +30,7 @@ namespace TutoringLib.Models
                 return $"{Firstname} {Lastname}";
             }
         }
+
+        public virtual ICollection<Tutorial> CreatedTutorials { get; set; }
     }
 }
