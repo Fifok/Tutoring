@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace TutoringLib.Models
         public string Description { get; set; }
         public int AuthorId { get; set; }
         public User Author { get; set; }
+        [NotMapped]
         public ICollection<string> Tags { get; set; }
         public ICollection<Page> Pages { get; set; }
     }
