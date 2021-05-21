@@ -13,6 +13,9 @@ namespace TutoringLib
         public DbSet<User> Users { get; set; }
         public DbSet<Tutorial> Tutorials { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public TutoringContext()
+        {
+        }
         public TutoringContext(DbContextOptions<TutoringContext> options) : base(options)
         {
         }
