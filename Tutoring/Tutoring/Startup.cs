@@ -7,6 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TutoringLib.Models;
+using TutoringLib.Repositories;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using Tutoring.Controllers;
+using Tutoring.Models.Validators;
+using Tutoring.Models;
 
 namespace Tutoring
 {
@@ -22,7 +29,11 @@ namespace Tutoring
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddFluentValidation();
+          
+            services.AddSingleton<IRepository<User>, MockUserRepository>();
+            services.AddTransient<IValidator<LoginViewModel>, LoginVMValidator>();
+            services.AddTransient<IValidator<SignupViewModel>, SignupVMValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

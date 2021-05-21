@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tutoring.Models;
+using TutoringLib.Models;
 
 namespace TutoringLib.Repositories
 {
@@ -21,6 +21,7 @@ namespace TutoringLib.Repositories
         
         public void Add(User model)
         {
+            model.Id = _users.Any() ? _users.Max(x => x.Id)+1 : 1;
             _users.Add(model);
         }
 
