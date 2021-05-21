@@ -26,6 +26,7 @@ namespace TutoringLib
             modelBuilder.Entity<User>().Property(x => x.Email).IsRequired();
             modelBuilder.Entity<User>().Property(x => x.Password).IsRequired();
 
+            modelBuilder.Entity<Tutorial>().Property(x => x.Title).IsRequired().HasMaxLength(256);
         }
     }
 }
