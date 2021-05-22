@@ -53,6 +53,17 @@ namespace TutoringLib
                 .HasForeignKey(x => x.PageId);
 
             modelBuilder.Entity<ContentItem>().HasKey(x => x.PageId);
+
+            modelBuilder.Entity<Page>()
+                .HasMany(x => x.Comments)
+                .WithOne(x => x.Page)
+                .HasForeignKey(x => x.PageId);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Comments)
+                .WithOne(x => x.Author)
+                .HasForeignKey(x => x.AuthorId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }
