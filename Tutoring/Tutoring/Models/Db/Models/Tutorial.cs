@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tutoring.Models.Db.Models;
 
 namespace TutoringLib.Models
 {
@@ -14,8 +15,7 @@ namespace TutoringLib.Models
         public string Description { get; set; }
         public int AuthorId { get; set; }
         public User Author { get; set; }
-        [NotMapped]
-        public ICollection<string> Tags { get; set; }
+        public ICollection<Tag> Tags { get; set; }
         public ICollection<Page> Pages { get; set; }
     }
 }
