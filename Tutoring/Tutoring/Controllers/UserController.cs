@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tutoring.Models;
-using TutoringLib.Models;
+using Tutoring.Models.Db.Models;
 using TutoringLib.Repositories;
 
 namespace Tutoring.Controllers
