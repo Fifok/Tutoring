@@ -4,9 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tutoring.Models.Db.Models;
 
-namespace TutoringLib.Models
+namespace Tutoring.Models.Db.Models
 {
     public class Tutorial
     {

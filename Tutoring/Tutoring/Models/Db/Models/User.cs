@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TutoringLib.Models
+namespace Tutoring.Models.Db.Models
 {
     public class User
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TutoringLib.Models
+namespace Tutoring.Models.Db.Models
 {
     [NotMapped]
     public class Comment
