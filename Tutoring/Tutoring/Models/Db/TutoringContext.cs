@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TutoringLib.Models;
+using Tutoring.Models.Db.Models;
 
 namespace TutoringLib
 {
@@ -34,6 +34,19 @@ namespace TutoringLib
             modelBuilder.Entity<User>().HasMany(x => x.CreatedTutorials)
                 .WithOne(x => x.Author)
                 .HasForeignKey(x => x.AuthorId);
+
+            modelBuilder.Entity<TutorialTag>().HasKey(x => new { x.TutorialId, x.TagId });
+
+            modelBuilder.Entity<TutorialTag>()
+                .HasOne(x => x.Tutorial)
+                .WithMany(x => x.Tags)
+                .HasForeignKey(x => x.TutorialId);
+
+            modelBuilder.Entity<TutorialTag>()
+                .HasOne(x => x.Tag)
+                .WithMany(x => x.Tutorials)
+                .HasForeignKey(x => x.TagId);
+
 
         }
     }
