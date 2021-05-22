@@ -47,7 +47,12 @@ namespace TutoringLib
                 .WithMany(x => x.Tutorials)
                 .HasForeignKey(x => x.TagId);
 
+            modelBuilder.Entity<Page>()
+                .HasMany(x => x.Content)
+                .WithOne(x => x.Page)
+                .HasForeignKey(x => x.PageId);
 
+            modelBuilder.Entity<ContentItem>().HasKey(x => x.PageId);
         }
     }
 }
