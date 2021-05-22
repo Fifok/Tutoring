@@ -52,7 +52,7 @@ namespace TutoringLib
                 .WithOne(x => x.Page)
                 .HasForeignKey(x => x.PageId);
 
-            modelBuilder.Entity<ContentItem>().HasKey(x => x.PageId);
+            modelBuilder.Entity<ContentItem>().HasKey(x => x.Id);
 
             modelBuilder.Entity<Page>()
                 .HasMany(x => x.Comments)
