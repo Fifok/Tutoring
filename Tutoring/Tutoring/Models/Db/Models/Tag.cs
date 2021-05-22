@@ -9,5 +9,7 @@ namespace Tutoring.Models.Db.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public ICollection<TutorialTag> Tutorials { get; set; }
     }
 }
