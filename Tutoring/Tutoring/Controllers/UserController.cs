@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Tutoring.Db;
 using Tutoring.Models;
 using Tutoring.Models.Db.Models;
 using TutoringLib;

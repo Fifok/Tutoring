@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tutoring.Db;
 using Tutoring.Models;
 using Tutoring.Models.Db.Models;
 using TutoringLib;
@@ -36,21 +37,17 @@ namespace Tutoring.Controllers
                 Pages = tutorial.Pages.Select(x => new PageViewModel
                 {
                     Title = x.Title,
-                    Content = MakePageContent(x)
+                    Content = x.Content.Select(x=>new ContentItemViewModel
+                    {
+                        Content = x.Content,
+                        ContentType = x.ContentType
+                    }).ToArray()
                 }).ToArray()
             };
 
             return View(data);
         }
 
-        private string MakePageContent(Page page)
-        {
-            var sb = new StringBuilder();
-            foreach (var contentItem in page.Content)
-            {
-                sb.Append(contentItem.Content);
-            }
-            return sb.ToString();
-        }
+        
     }
 }

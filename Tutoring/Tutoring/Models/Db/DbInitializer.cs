@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tutoring.Db;
 using Tutoring.Models.Db.Models;
-using TutoringLib;
 
 namespace Tutoring.Models.Db
 {

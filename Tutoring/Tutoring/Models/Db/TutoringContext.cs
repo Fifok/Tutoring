@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tutoring.Models.Db.Models;
 
-namespace TutoringLib
+namespace Tutoring.Db
 {
     public class TutoringContext : DbContext
     {
