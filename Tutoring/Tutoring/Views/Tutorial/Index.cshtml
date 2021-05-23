@@ -30,4 +30,7 @@
             @Html.DisplayFor(model => model.Author.Fullname)
         </dd>
     </dl>
+    @{
+        await Html.RenderPartialAsync("Page",Model.Pages);
+    }
 </div>

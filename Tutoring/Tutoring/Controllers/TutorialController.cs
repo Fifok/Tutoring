@@ -45,7 +45,7 @@ namespace Tutoring.Controllers
                 }).ToArray()
             };
 
-            return Ok(data);
+            return View(data);
         }
 
         
