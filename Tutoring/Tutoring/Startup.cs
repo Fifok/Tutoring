@@ -7,13 +7,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TutoringLib.Models;
 using TutoringLib.Repositories;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using Tutoring.Controllers;
 using Tutoring.Models.Validators;
 using Tutoring.Models;
+using TutoringLib;
+using Microsoft.EntityFrameworkCore;
 
 namespace Tutoring
 {
@@ -30,8 +31,9 @@ namespace Tutoring
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddFluentValidation();
-          
-            services.AddSingleton<IRepository<User>, MockUserRepository>();
+
+            services.AddDbContext<TutoringContext>(options => options.UseSqlServer(Configuration.GetConnectionString("dev")));
+            //services.AddSingleton<IRepository<User>, MockUserRepository>();
             services.AddTransient<IValidator<LoginViewModel>, LoginVMValidator>();
             services.AddTransient<IValidator<SignupViewModel>, SignupVMValidator>();
         }

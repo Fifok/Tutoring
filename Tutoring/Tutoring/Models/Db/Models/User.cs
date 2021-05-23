@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TutoringLib.Models
+namespace Tutoring.Models.Db.Models
 {
     public class User
     {
@@ -30,5 +30,8 @@ namespace TutoringLib.Models
                 return $"{Firstname} {Lastname}";
             }
         }
+
+        public virtual ICollection<Tutorial> CreatedTutorials { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }
