@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Tutoring.Controllers;
+using Tutoring.Db;
 using Tutoring.Models;
 using Tutoring.Models.Validators;
 using TutoringLib;

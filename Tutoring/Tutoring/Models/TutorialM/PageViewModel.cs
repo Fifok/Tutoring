@@ -6,6 +6,6 @@ namespace Tutoring.Models
     public class PageViewModel
     {
         public string Title { get; set; }
-        public string Content { get; set; }
+        public ICollection<ContentItemViewModel> Content { get; set; }
     }
 }
