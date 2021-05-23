@@ -1,29 +1,30 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TutoringLib.Repositories;
-using FluentValidation.AspNetCore;
-using FluentValidation;
 using Tutoring.Controllers;
-using Tutoring.Models.Validators;
 using Tutoring.Models;
+using Tutoring.Models.Validators;
 using TutoringLib;
-using Microsoft.EntityFrameworkCore;
 
 namespace Tutoring
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostEnvironment environment)
         {
+            _environment = environment;
             Configuration = configuration;
         }
+
+        private readonly IHostEnvironment _environment;
 
         public IConfiguration Configuration { get; }
 
@@ -36,6 +37,21 @@ namespace Tutoring
             //services.AddSingleton<IRepository<User>, MockUserRepository>();
             services.AddTransient<IValidator<LoginViewModel>, LoginVMValidator>();
             services.AddTransient<IValidator<SignupViewModel>, SignupVMValidator>();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(o =>
+                {
+                    o.Cookie.HttpOnly = true;
+                    o.Cookie.SecurePolicy = _environment.IsDevelopment()
+                        ? CookieSecurePolicy.None : CookieSecurePolicy.Always;
+                    o.Cookie.SameSite = SameSiteMode.Strict;
+                });
+            services.Configure<CookiePolicyOptions>(o =>
+            {
+                o.MinimumSameSitePolicy = SameSiteMode.Strict;
+                o.HttpOnly = HttpOnlyPolicy.None;
+                o.Secure = _environment.IsDevelopment()
+                    ? CookieSecurePolicy.None : CookieSecurePolicy.Always;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +69,8 @@ namespace Tutoring
 
             app.UseRouting();
 
+            app.UseCookiePolicy();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
