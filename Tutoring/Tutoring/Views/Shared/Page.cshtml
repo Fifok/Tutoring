@@ -1,0 +1,24 @@
+﻿@model ICollection<PageViewModel>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@foreach (var page in Model)
+{
+    @foreach (var content in page.Content)
+    {
+        switch (content.ContentType)
+        {
+            case Tutoring.Models.Db.Models.ContentType.Text:
+                <p>@content.Content</p>
+                break;
+            case Tutoring.Models.Db.Models.ContentType.Image:
+                <img src="~/images/@(content.Content)" />
+                break;
+            default:
+                break;
+        }
+    }
+}
