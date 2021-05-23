@@ -44,6 +44,9 @@ namespace Tutoring
                     o.Cookie.SecurePolicy = _environment.IsDevelopment()
                         ? CookieSecurePolicy.None : CookieSecurePolicy.Always;
                     o.Cookie.SameSite = SameSiteMode.Strict;
+                    o.Cookie.Name = "YourAuthCookie";
+                    o.LoginPath = "/user/login";
+                    o.LogoutPath = "/user/logout";
                 });
             services.Configure<CookiePolicyOptions>(o =>
             {
