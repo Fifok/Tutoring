@@ -1,4 +1,4 @@
-﻿namespace Tutoring.Models
+﻿namespace Tutoring.Controllers
 {
     public class LoginViewModel
     {
