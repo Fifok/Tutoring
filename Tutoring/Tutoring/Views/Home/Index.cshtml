@@ -28,7 +28,7 @@
                 @for (int i = 0; i < Model.Tutorials.Count; i++)
                 {
                     var tutorial = Model.Tutorials.ElementAt(i);
-                    <a href="@Url.Action("Index","Tutorial")" class="list-group-item list-group-item-action list-group-item-primary text-center">
+                    <a asp-action="Index" asp-controller="Tutorial" asp-route-id="@tutorial.Id" class="list-group-item list-group-item-action list-group-item-primary text-center">
                         <div class="row">
                             <div class="col-1">@($"{i+1}.")</div>
                             <div class="col-3">@tutorial.Title</div>

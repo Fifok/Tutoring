@@ -27,6 +27,7 @@ namespace Tutoring.Controllers
             {
                 Tutorials = _context.Tutorials.Select(x => new TutorialListItemViewModel
                 {
+                    Id = x.Id,
                     Author = new UserInfoViewModel { Fullname = x.Author.Fullname, Nickname = x.Author.Nickname },
                     Title = x.Title,
                     Description = x.Description
