@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Tutoring.Models;
 using Tutoring.Models.Db.Models;
@@ -19,6 +23,7 @@ namespace Tutoring.Controllers
             _context = context;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             var users = _context.Users.Select(x => new UserIndexViewModel
@@ -63,11 +68,23 @@ namespace Tutoring.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel model)
+        public async Task<IActionResult> LoginAsync(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                var user = _context.Users.FirstOrDefault(x => x.Email == model.Email && x.Password == model.Password);
+                if(user == null)
+                {
+                    return BadRequest("Wrong credentials");
+                }
+                var claims = new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.Fullname),
+                    new Claim(ClaimTypes.Email, ClaimTypes.Email)
+                };
+
+                await HttpContext.SignInAsync(new ClaimsPrincipal(new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme)));
+                return RedirectToAction(nameof(Index),"Home");
             }
 
             return BadRequest();
