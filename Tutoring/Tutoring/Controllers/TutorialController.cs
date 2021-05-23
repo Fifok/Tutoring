@@ -40,7 +40,7 @@ namespace Tutoring.Controllers
                 }).ToArray()
             };
 
-            return Ok(data);
+            return View(data);
         }
 
         private string MakePageContent(Page page)
