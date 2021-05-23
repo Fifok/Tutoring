@@ -13,6 +13,11 @@ namespace Tutoring.Models.Db
         {
             await context.Database.EnsureCreatedAsync();
 
+            if (context.Users.Any())
+            {
+                return;
+            }
+
             var users = new User[]
             {
                 new User
