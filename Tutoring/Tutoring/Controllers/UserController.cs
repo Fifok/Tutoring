@@ -5,22 +5,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tutoring.Models;
 using Tutoring.Models.Db.Models;
+using TutoringLib;
 using TutoringLib.Repositories;
 
 namespace Tutoring.Controllers
 {
     public class UserController : Controller
     {
-        private IRepository<User> _userRepository;
+        private readonly TutoringContext _context;
 
-        public UserController(IRepository<User> userRepository)
+        public UserController(TutoringContext context)
         {
-            _userRepository = userRepository;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            var users = _userRepository.GetAll().Select(x => new UserIndexViewModel
+            var users = _context.Users.Select(x => new UserIndexViewModel
             {
                 Fullname = x.Fullname,
                 Birthdate = x.Birthdate,
@@ -36,7 +37,7 @@ namespace Tutoring.Controllers
         }
 
         [HttpPost]
-        public IActionResult Signup(SignupViewModel model)
+        public async Task<IActionResult> SignupAsync(SignupViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -48,7 +49,8 @@ namespace Tutoring.Controllers
                     Email = model.Email,
                     Password = model.Password
                 };
-                _userRepository.Add(newUser);
+                await _context.Users.AddAsync(newUser);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
