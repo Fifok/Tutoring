@@ -20,7 +20,7 @@ namespace Tutoring.Controllers
         {
             _context = context;
         }
-        public IActionResult Index(int? id)
+        public IActionResult Index(int? id,int pageNumber = 1)
         {
 
             var tutorial = _context.Tutorials.Include(x => x.Author).Include(x=>x.Pages).ThenInclude(x=>x.Content).FirstOrDefault(x => x.Id == id);
@@ -29,12 +29,12 @@ namespace Tutoring.Controllers
                 return NotFound();
             }
 
-            var data = new TutorialIndexViewModel
+             var data = new TutorialIndexViewModel
             {
                 Title = tutorial.Title,
                 Description = tutorial.Description,
                 Author = new UserInfoViewModel { Fullname = tutorial.Author.Fullname, Nickname = tutorial.Author.Nickname },
-                Pages = tutorial.Pages.Select(x => new PageViewModel
+                Page = tutorial.Pages.Select(x => new PageViewModel
                 {
                     Title = x.Title,
                     Content = x.Content.Select(x=>new ContentItemViewModel
@@ -42,12 +42,32 @@ namespace Tutoring.Controllers
                         Content = x.Content,
                         ContentType = x.ContentType
                     }).ToArray()
-                }).ToArray()
+                }).Skip(pageNumber-1).FirstOrDefault(),
+                CurrentPageNumber = pageNumber,
+                TotalPageNumber = tutorial.Pages.Count
             };
 
             return View(data);
         }
 
-        
+        public async Task<IActionResult> AjaxGetPageAsync(int id, int pageNumber)
+        {
+            var page = await GetPageAsync(id, pageNumber);
+            return PartialView("_PageDisplayPartial", 
+                new PageViewModel 
+                { 
+                    Title = page.Title, 
+                    Content = page.Content.Select(x=>new ContentItemViewModel {Content = x.Content, ContentType = x.ContentType}).ToArray() 
+                });
+        }
+
+        private async Task<Page> GetPageAsync(int id, int pageNumber)
+        {
+            var tut = await _context.Tutorials.Include(x=>x.Pages).ThenInclude(x=>x.Content).FirstOrDefaultAsync(x => x.Id == id);
+            if (pageNumber > 0)
+                return tut.Pages.Skip(pageNumber-1).FirstOrDefault();
+
+            return tut.Pages.ElementAt(0);
+        }
     }
 }

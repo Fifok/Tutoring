@@ -5,8 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
-
 <div>
     <h4>Tutorial</h4>
     <hr />
@@ -30,7 +28,17 @@
             @Html.DisplayFor(model => model.Author.Fullname)
         </dd>
     </dl>
-    @{
-        await Html.RenderPartialAsync("Page",Model.Pages);
-    }
+    <div id="page">
+        <partial name="_PageDisplayPartial" model="@Model.Page" />
+    </div>
+
+    <div class="my-5 ">
+        <paging  class-paging-control-div="col-8" class-info-div="col-4 text-right" page-no="@Model.CurrentPageNumber"
+                page-size="1"
+                total-records="@Model.TotalPageNumber"
+                query-string-key-page-no="pageNumber"
+                show-page-size-nav="false"
+                show-total-records="false">
+        </paging>
+    </div>
 </div>
