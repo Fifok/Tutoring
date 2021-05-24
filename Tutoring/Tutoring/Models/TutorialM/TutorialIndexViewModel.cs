@@ -10,7 +10,9 @@ namespace Tutoring.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public UserInfoViewModel Author { get; set; }
-        public ICollection<PageViewModel> Pages { get; set; }
+        public PageViewModel Page { get; set; }
+        public int CurrentPageNumber { get; set; }
+        public int TotalPageNumber { get; set; }
 
     }
 }
