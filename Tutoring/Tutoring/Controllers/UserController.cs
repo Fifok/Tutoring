@@ -90,5 +90,11 @@ namespace Tutoring.Controllers
 
             return BadRequest();
         }
+
+        public async Task<IActionResult> SignoutAsync()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
