@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -76,7 +77,6 @@ namespace Tutoring.Controllers
         [Authorize]
         public IActionResult Add()
         {
-
             return View();
         }
 
@@ -86,29 +86,28 @@ namespace Tutoring.Controllers
         {
             if (ModelState.IsValid)
             {
+                var email = HttpContext.User.Identities.First().FindFirst(ClaimTypes.Email).Value;
                 var tutorial = new Tutorial
                 {
                     Title = model.Title,
                     Description = model.Description,
-                    Author = _context.Users.FirstOrDefault(x => x.Email == HttpContext.User.Claims.FirstOrDefault(y => y.Type == ClaimTypes.Email).Value),
-                    Pages = model.Pages.Select(x => new Page
-                    {
-                        Title = x.Title,
-                        Content = x.Content.Select(y => new ContentItem
-                        {
-                            ContentType = y.ContentType,
-                            Content = y.Content
-                        }).ToArray()
-                    }).ToArray()
+                    Author = _context.Users.FirstOrDefault(x => x.Email == email),
                 };
 
                 _context.Tutorials.Add(tutorial);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("AddPage", new {tutorialId =  tutorial.Id});
             }
 
             return BadRequest(model);
         }
+
+        public IActionResult AddPage(int tutorialId)
+        {
+            return View();
+        }
+
+       
     }
 }
