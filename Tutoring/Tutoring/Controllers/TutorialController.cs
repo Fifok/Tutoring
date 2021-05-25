@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Tutoring.Db;
@@ -79,6 +80,35 @@ namespace Tutoring.Controllers
             return View();
         }
 
-        
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddAsync(TutorialAddViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var tutorial = new Tutorial
+                {
+                    Title = model.Title,
+                    Description = model.Description,
+                    Author = _context.Users.FirstOrDefault(x => x.Email == HttpContext.User.Claims.FirstOrDefault(y => y.Type == ClaimTypes.Email).Value),
+                    Pages = model.Pages.Select(x => new Page
+                    {
+                        Title = x.Title,
+                        Content = x.Content.Select(y => new ContentItem
+                        {
+                            ContentType = y.ContentType,
+                            Content = y.Content
+                        }).ToArray()
+                    }).ToArray()
+                };
+
+                _context.Tutorials.Add(tutorial);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return BadRequest(model);
+        }
     }
 }
