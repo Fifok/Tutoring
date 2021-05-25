@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using Tutoring.Db;
 using Tutoring.Models;
 using Tutoring.Models.Db.Models;
+using Tutoring.Models.TutorialM;
 using TutoringLib;
 
 namespace Tutoring.Controllers
@@ -69,5 +71,14 @@ namespace Tutoring.Controllers
 
             return tut.Pages.ElementAt(0);
         }
+
+        [Authorize]
+        public IActionResult Add()
+        {
+
+            return View();
+        }
+
+        
     }
 }
