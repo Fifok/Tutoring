@@ -81,7 +81,7 @@ namespace Tutoring.Controllers
                 var claims = new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Fullname),
-                    new Claim(ClaimTypes.Email, ClaimTypes.Email)
+                    new Claim(ClaimTypes.Email, user.Email)
                 };
 
                 await HttpContext.SignInAsync(new ClaimsPrincipal(new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme)));
