@@ -29,8 +29,15 @@
                         </li>
                     </ul>
                     <div class="mr-sm-2">
-                        <a class="btn btn-secondary" asp-controller="User" asp-action="Signup">Sign up</a>
-                        <a class="btn btn-info" asp-controller="User" asp-action="Login">Login</a>
+                        @if (!Context.User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn btn-secondary" asp-controller="User" asp-action="Signup">Sign up</a>
+                            <a class="btn btn-info" asp-controller="User" asp-action="Login">Login</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-secondary" asp-controller="User" asp-action="Signout">Sign out</a>
+                        }
                     </div>
                 </div>
             </div>

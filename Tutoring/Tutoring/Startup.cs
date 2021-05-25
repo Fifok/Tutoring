@@ -47,7 +47,7 @@ namespace Tutoring
                     o.Cookie.SameSite = SameSiteMode.Strict;
                     o.Cookie.Name = "YourAuthCookie";
                     o.LoginPath = "/user/login";
-                    o.LogoutPath = "/user/logout";
+                    o.LogoutPath = "/user/signout";
                 });
             services.Configure<CookiePolicyOptions>(o =>
             {
