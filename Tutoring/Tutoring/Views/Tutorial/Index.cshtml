@@ -1,4 +1,4 @@
-﻿@model Tutoring.Models.TutorialIndexViewModel
+﻿@model Tutoring.Models.IndexViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -28,17 +28,31 @@
             @Html.DisplayFor(model => model.Author.Fullname)
         </dd>
     </dl>
-    <div id="page">
-        <partial name="_PageDisplayPartial" model="@Model.Page" />
-    </div>
-    
-    <div class="my-5 ">
-        <paging  class-paging-control-div="col-8" class-info-div="col-4 text-right" page-no="@Model.CurrentPageNumber"
-                page-size="1"
-                total-records="@Model.TotalPageNumber"
-                query-string-key-page-no="pageNumber"
-                show-page-size-nav="false"
-                show-total-records="false">
-        </paging>
-    </div>
+    @foreach (var content in Model.Content)
+    {
+        switch (content.ContentType)
+        {
+            case Tutoring.Models.Db.Models.ContentType.Text:
+                <p>@content.Content</p>
+                break;
+            case Tutoring.Models.Db.Models.ContentType.Image:
+                <img src="~/images/@(content.Content)" />
+                break;
+            default:
+                break;
+        }
+    }
+    @*<div id="page">
+            <partial name="_PageDisplayPartial" model="@Model.Page" />
+        </div>*@
+
+    @*<div class="my-5 ">
+            <paging  class-paging-control-div="col-8" class-info-div="col-4 text-right" page-no="@Model.CurrentPageNumber"
+                    page-size="1"
+                    total-records="@Model.TotalPageNumber"
+                    query-string-key-page-no="pageNumber"
+                    show-page-size-nav="false"
+                    show-total-records="false">
+            </paging>
+        </div>*@
 </div>
