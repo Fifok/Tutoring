@@ -36,7 +36,10 @@
                         }
                         else
                         {
-                            <a class="btn btn-secondary" asp-controller="User" asp-action="Signout">Sign out</a>
+                            <div class="d-sm-inline-flex ">
+                                <p class="text-info mx-4 my-0 align-self-center">@Context.User.Identity.Name</p>
+                                <a class="btn btn-secondary" asp-controller="User" asp-action="Signout">Sign out</a>
+                            </div>
                         }
                     </div>
                 </div>

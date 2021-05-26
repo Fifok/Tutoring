@@ -8,22 +8,26 @@
     <h1 class="display-2">Welcome</h1>
     <h2>to Tutoring</h2>
 </div>
-<div class="col m-1 my-5 bg-info bg-gradient rounded">
+<div class="col m-1 my-5 bg-info bg-gradient rounded ">
     <h4 class="row justify-content-center py-3">Tutorials</h4>
+    @if (Context.User.Identity.IsAuthenticated)
+    {
+        <a class="btn btn-primary justify-content-center" asp-controller="Tutorial" asp-action="Add">New Tutorial</a>
+    }
     <div class="row justify-content-center">
         <div class="col">
             @*<table class="table table-primary table-striped table-hover rounded">
-                @for (int i = 0; i < Model.Tutorials.Count; i++)
-                {
-                    var tutorial = Model.Tutorials.ElementAt(i);
-                    <tr class="text-center">
-                        <td>@($"{i+1}.")</td>
-                        <td>@tutorial.Title</td>
-                        <td>@tutorial.Description</td>
-                        <td>@tutorial.Author.Fullname</td>
-                    </tr>
-                }
-            </table>*@
+                    @for (int i = 0; i < Model.Tutorials.Count; i++)
+                    {
+                        var tutorial = Model.Tutorials.ElementAt(i);
+                        <tr class="text-center">
+                            <td>@($"{i+1}.")</td>
+                            <td>@tutorial.Title</td>
+                            <td>@tutorial.Description</td>
+                            <td>@tutorial.Author.Fullname</td>
+                        </tr>
+                    }
+                </table>*@
             <div class="list-group rounded my-3">
                 @for (int i = 0; i < Model.Tutorials.Count; i++)
                 {

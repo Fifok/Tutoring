@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DynamicVML;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,10 @@ using System.Threading.Tasks;
 using Tutoring.Db;
 using Tutoring.Models;
 using Tutoring.Models.Db.Models;
+using Tutoring.Models.TutorialM;
 using TutoringLib;
+using DynamicVML;
+using DynamicVML.Extensions;
 
 namespace Tutoring.Controllers
 {
@@ -67,5 +71,47 @@ namespace Tutoring.Controllers
         //    return tut.Pages.ElementAt(0);
         //}
 
+        [Authorize]
+        public IActionResult Add()
+        {
+           
+            return View(new AddViewModel());
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddAsync(AddViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var newTutorial = new Tutorial
+                {
+                    Title = model.Title,
+                    Description = model.Description,
+                    Content = model.Content.Select(x => new ContentItem
+                    {
+                        Content = x.ViewModel.Content,
+                        ContentType = x.ViewModel.ContentType
+                    }).ToArray(),
+                    Author = _context.Users.FirstOrDefault(x => x.Email == HttpContext.User.Identities.First().FindFirst(ClaimTypes.Email).Value)
+                };
+                _context.Tutorials.Add(newTutorial);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Home");
+            }
+            return View(model);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> AddContent(AddNewDynamicItem parameters)
+        {
+            ViewBag.ContentTypes = new SelectListItem[]
+           {
+                new SelectListItem {Value = ContentType.Text.ToString(), Text = ContentType.Text.ToString() },
+                new SelectListItem {Value = ContentType.Image.ToString(), Text = ContentType.Image.ToString() },
+           };
+            var content = new ContentItemViewModel();
+            return this.PartialView(content, parameters);
+        }
     }
 }

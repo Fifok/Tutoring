@@ -8,6 +8,7 @@ namespace Tutoring.Models
 {
     public class ContentItemViewModel
     {
+        public int Id { get; set; }
         public string Content { get; set; }
         public ContentType ContentType { get; set; }
     }
