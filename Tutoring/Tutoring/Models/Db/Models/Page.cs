@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tutoring.Models.Db.Models
 {
-    [NotMapped]
     public class Page
     {
         public int Id { get; set; }
@@ -12,5 +11,6 @@ namespace Tutoring.Models.Db.Models
         public string Title { get; set; }
         public virtual ICollection<ContentItem> Content { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public int PageNumber { get; set; }
     }
 }

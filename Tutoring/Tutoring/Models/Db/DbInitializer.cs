@@ -42,7 +42,7 @@ namespace Tutoring.Models.Db
                                     {
                                         new ContentItem
                                         {
-                                            Content = "Test content"
+                                            Content = "Test content",
                                         },
                                         new ContentItem
                                         {
@@ -53,7 +53,8 @@ namespace Tutoring.Models.Db
                                             Content = "dori.jpg",
                                             ContentType = ContentType.Image
                                         }
-                                    }
+                                    },
+                                    PageNumber = 1
                                 },
                                 new Page
                                 {
@@ -68,7 +69,8 @@ namespace Tutoring.Models.Db
                                         {
                                             Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu metus accumsan, fermentum dui interdum, faucibus ipsum. Aliquam eu libero eget elit feugiat dapibus. Etiam viverra venenatis diam, ut elementum elit. Phasellus laoreet est eget libero sollicitudin porta. Morbi a sem ultrices, sagittis tortor et, efficitur nulla. Curabitur placerat scelerisque sapien, scelerisque malesuada nisl viverra eu. Donec scelerisque scelerisque lobortis. Nulla ut magna maximus, bibendum erat in, blandit neque. Duis tincidunt maximus purus. Sed feugiat ligula nec velit sollicitudin tristique."
                                         }
-                                    }
+                                    },
+                                    PageNumber = 2
                                 }
                             }
                         }
@@ -102,7 +104,8 @@ namespace Tutoring.Models.Db
                                         {
                                             Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu metus accumsan, fermentum dui interdum, faucibus ipsum. Aliquam eu libero eget elit feugiat dapibus. Etiam viverra venenatis diam, ut elementum elit. Phasellus laoreet est eget libero sollicitudin porta. Morbi a sem ultrices, sagittis tortor et, efficitur nulla. Curabitur placerat scelerisque sapien, scelerisque malesuada nisl viverra eu. Donec scelerisque scelerisque lobortis. Nulla ut magna maximus, bibendum erat in, blandit neque. Duis tincidunt maximus purus. Sed feugiat ligula nec velit sollicitudin tristique."
                                         }
-                                    }
+                                    },
+                                    PageNumber = 1
                                 },
                                 new Page
                                 {
@@ -118,7 +121,9 @@ namespace Tutoring.Models.Db
                                         {
                                             Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu metus accumsan, fermentum dui interdum, faucibus ipsum. Aliquam eu libero eget elit feugiat dapibus. Etiam viverra venenatis diam, ut elementum elit. Phasellus laoreet est eget libero sollicitudin porta. Morbi a sem ultrices, sagittis tortor et, efficitur nulla. Curabitur placerat scelerisque sapien, scelerisque malesuada nisl viverra eu. Donec scelerisque scelerisque lobortis. Nulla ut magna maximus, bibendum erat in, blandit neque. Duis tincidunt maximus purus. Sed feugiat ligula nec velit sollicitudin tristique."
                                         }
-                                    }
+                                    },
+                                    PageNumber = 2
+
                                 }
                             }
                         }, new Tutorial
@@ -140,7 +145,8 @@ namespace Tutoring.Models.Db
                                         {
                                             Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu metus accumsan, fermentum dui interdum, faucibus ipsum. Aliquam eu libero eget elit feugiat dapibus. Etiam viverra venenatis diam, ut elementum elit. Phasellus laoreet est eget libero sollicitudin porta. Morbi a sem ultrices, sagittis tortor et, efficitur nulla. Curabitur placerat scelerisque sapien, scelerisque malesuada nisl viverra eu. Donec scelerisque scelerisque lobortis. Nulla ut magna maximus, bibendum erat in, blandit neque. Duis tincidunt maximus purus. Sed feugiat ligula nec velit sollicitudin tristique."
                                         }
-                                    }
+                                    },
+                                    PageNumber = 1
                                 },
                                 new Page
                                 {
@@ -155,7 +161,8 @@ namespace Tutoring.Models.Db
                                         {
                                             Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu metus accumsan, fermentum dui interdum, faucibus ipsum. Aliquam eu libero eget elit feugiat dapibus. Etiam viverra venenatis diam, ut elementum elit. Phasellus laoreet est eget libero sollicitudin porta. Morbi a sem ultrices, sagittis tortor et, efficitur nulla. Curabitur placerat scelerisque sapien, scelerisque malesuada nisl viverra eu. Donec scelerisque scelerisque lobortis. Nulla ut magna maximus, bibendum erat in, blandit neque. Duis tincidunt maximus purus. Sed feugiat ligula nec velit sollicitudin tristique."
                                         }
-                                    }
+                                    },
+                                    PageNumber = 2
                                 }
                             }
                         }
