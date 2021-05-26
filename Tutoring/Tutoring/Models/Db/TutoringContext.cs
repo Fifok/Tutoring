@@ -47,17 +47,22 @@ namespace Tutoring.Db
                 .WithMany(x => x.Tutorials)
                 .HasForeignKey(x => x.TagId);
 
-            modelBuilder.Entity<Page>()
+            modelBuilder.Entity<Tutorial>()
                 .HasMany(x => x.Content)
-                .WithOne(x => x.Page)
-                .HasForeignKey(x => x.PageId);
+                .WithOne(x => x.Tutorial)
+                .HasForeignKey(x => x.TutorialId);
+
+            //modelBuilder.Entity<Page>()
+            //    .HasMany(x => x.Content)
+            //    .WithOne(x => x.Page)
+            //    .HasForeignKey(x => x.PageId);
 
             modelBuilder.Entity<ContentItem>().HasKey(x => x.Id);
 
-            modelBuilder.Entity<Page>()
-                .HasMany(x => x.Comments)
-                .WithOne(x => x.Page)
-                .HasForeignKey(x => x.PageId);
+            //modelBuilder.Entity<Page>()
+            //    .HasMany(x => x.Comments)
+            //    .WithOne(x => x.Page)
+            //    .HasForeignKey(x => x.PageId);
 
             modelBuilder.Entity<User>()
                 .HasMany(x => x.Comments)

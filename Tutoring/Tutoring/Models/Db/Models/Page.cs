@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tutoring.Models.Db.Models
 {
+ [NotMapped]
     public class Page
     {
         public int Id { get; set; }

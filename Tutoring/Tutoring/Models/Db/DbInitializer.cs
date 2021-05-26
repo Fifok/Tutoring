@@ -33,11 +33,6 @@ namespace Tutoring.Models.Db
                         {
                             Title = "Test title 1",
                             Description = "Super test description 1",
-                            Pages = new Page[]
-                            {
-                                new Page
-                                {
-                                    Title = "First page",
                                     Content = new ContentItem[]
                                     {
                                         new ContentItem
@@ -54,25 +49,7 @@ namespace Tutoring.Models.Db
                                             ContentType = ContentType.Image
                                         }
                                     },
-                                    PageNumber = 1
-                                },
-                                new Page
-                                {
-                                    Title = "Second page",
-                                    Content = new ContentItem[]
-                                    {
-                                        new ContentItem
-                                        {
-                                            Content = "Test content"
-                                        },
-                                        new ContentItem
-                                        {
-                                            Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu metus accumsan, fermentum dui interdum, faucibus ipsum. Aliquam eu libero eget elit feugiat dapibus. Etiam viverra venenatis diam, ut elementum elit. Phasellus laoreet est eget libero sollicitudin porta. Morbi a sem ultrices, sagittis tortor et, efficitur nulla. Curabitur placerat scelerisque sapien, scelerisque malesuada nisl viverra eu. Donec scelerisque scelerisque lobortis. Nulla ut magna maximus, bibendum erat in, blandit neque. Duis tincidunt maximus purus. Sed feugiat ligula nec velit sollicitudin tristique."
-                                        }
-                                    },
-                                    PageNumber = 2
-                                }
-                            }
+
                         }
                     }
 
@@ -89,82 +66,51 @@ namespace Tutoring.Models.Db
                         {
                             Title = "Test title 2",
                             Description = "Super test description 2",
-                            Pages = new Page[]
+                            Content = new ContentItem[]
                             {
-                                new Page
+                                new ContentItem
                                 {
-                                    Title = "First page",
-                                    Content = new ContentItem[]
-                                    {
-                                        new ContentItem
-                                        {
-                                            Content = "Test content"
-                                        },
-                                        new ContentItem
-                                        {
-                                            Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu metus accumsan, fermentum dui interdum, faucibus ipsum. Aliquam eu libero eget elit feugiat dapibus. Etiam viverra venenatis diam, ut elementum elit. Phasellus laoreet est eget libero sollicitudin porta. Morbi a sem ultrices, sagittis tortor et, efficitur nulla. Curabitur placerat scelerisque sapien, scelerisque malesuada nisl viverra eu. Donec scelerisque scelerisque lobortis. Nulla ut magna maximus, bibendum erat in, blandit neque. Duis tincidunt maximus purus. Sed feugiat ligula nec velit sollicitudin tristique."
-                                        }
-                                    },
-                                    PageNumber = 1
+                                    Content = "Test content"
                                 },
-                                new Page
+                                new ContentItem
                                 {
-                                    Title = "Second page",
-                                    Content = new ContentItem[]
-                                    {
-
-                                        new ContentItem
-                                        {
-                                            Content = "Test content"
-                                        },
-                                        new ContentItem
-                                        {
-                                            Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu metus accumsan, fermentum dui interdum, faucibus ipsum. Aliquam eu libero eget elit feugiat dapibus. Etiam viverra venenatis diam, ut elementum elit. Phasellus laoreet est eget libero sollicitudin porta. Morbi a sem ultrices, sagittis tortor et, efficitur nulla. Curabitur placerat scelerisque sapien, scelerisque malesuada nisl viverra eu. Donec scelerisque scelerisque lobortis. Nulla ut magna maximus, bibendum erat in, blandit neque. Duis tincidunt maximus purus. Sed feugiat ligula nec velit sollicitudin tristique."
-                                        }
-                                    },
-                                    PageNumber = 2
-
+                                    Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu metus accumsan, fermentum dui interdum, faucibus ipsum. Aliquam eu libero eget elit feugiat dapibus. Etiam viverra venenatis diam, ut elementum elit. Phasellus laoreet est eget libero sollicitudin porta. Morbi a sem ultrices, sagittis tortor et, efficitur nulla. Curabitur placerat scelerisque sapien, scelerisque malesuada nisl viverra eu. Donec scelerisque scelerisque lobortis. Nulla ut magna maximus, bibendum erat in, blandit neque. Duis tincidunt maximus purus. Sed feugiat ligula nec velit sollicitudin tristique."
+                                },
+                                new ContentItem
+                                {
+                                    Content = "Test content"
+                                },
+                                new ContentItem
+                                {
+                                    Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu metus accumsan, fermentum dui interdum, faucibus ipsum. Aliquam eu libero eget elit feugiat dapibus. Etiam viverra venenatis diam, ut elementum elit. Phasellus laoreet est eget libero sollicitudin porta. Morbi a sem ultrices, sagittis tortor et, efficitur nulla. Curabitur placerat scelerisque sapien, scelerisque malesuada nisl viverra eu. Donec scelerisque scelerisque lobortis. Nulla ut magna maximus, bibendum erat in, blandit neque. Duis tincidunt maximus purus. Sed feugiat ligula nec velit sollicitudin tristique."
                                 }
                             }
+
                         }, new Tutorial
                         {
                             Title = "Test title 3",
                             Description = "Super test description 3",
-                            Pages = new Page[]
+                            Content = new ContentItem[]
                             {
-                                new Page
+                                new ContentItem
                                 {
-                                    Title = "First page",
-                                    Content = new ContentItem[]
-                                    {
-                                        new ContentItem
-                                        {
-                                            Content = "Test content"
-                                        },
-                                        new ContentItem
-                                        {
-                                            Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu metus accumsan, fermentum dui interdum, faucibus ipsum. Aliquam eu libero eget elit feugiat dapibus. Etiam viverra venenatis diam, ut elementum elit. Phasellus laoreet est eget libero sollicitudin porta. Morbi a sem ultrices, sagittis tortor et, efficitur nulla. Curabitur placerat scelerisque sapien, scelerisque malesuada nisl viverra eu. Donec scelerisque scelerisque lobortis. Nulla ut magna maximus, bibendum erat in, blandit neque. Duis tincidunt maximus purus. Sed feugiat ligula nec velit sollicitudin tristique."
-                                        }
-                                    },
-                                    PageNumber = 1
+                                    Content = "Test content"
                                 },
-                                new Page
+                                new ContentItem
                                 {
-                                    Title = "Second page",
-                                    Content = new ContentItem[]
-                                    {
-                                        new ContentItem
-                                        {
-                                            Content = "Test content"
-                                        },
-                                        new ContentItem
-                                        {
-                                            Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu metus accumsan, fermentum dui interdum, faucibus ipsum. Aliquam eu libero eget elit feugiat dapibus. Etiam viverra venenatis diam, ut elementum elit. Phasellus laoreet est eget libero sollicitudin porta. Morbi a sem ultrices, sagittis tortor et, efficitur nulla. Curabitur placerat scelerisque sapien, scelerisque malesuada nisl viverra eu. Donec scelerisque scelerisque lobortis. Nulla ut magna maximus, bibendum erat in, blandit neque. Duis tincidunt maximus purus. Sed feugiat ligula nec velit sollicitudin tristique."
-                                        }
-                                    },
-                                    PageNumber = 2
+                                    Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu metus accumsan, fermentum dui interdum, faucibus ipsum. Aliquam eu libero eget elit feugiat dapibus. Etiam viverra venenatis diam, ut elementum elit. Phasellus laoreet est eget libero sollicitudin porta. Morbi a sem ultrices, sagittis tortor et, efficitur nulla. Curabitur placerat scelerisque sapien, scelerisque malesuada nisl viverra eu. Donec scelerisque scelerisque lobortis. Nulla ut magna maximus, bibendum erat in, blandit neque. Duis tincidunt maximus purus. Sed feugiat ligula nec velit sollicitudin tristique."
+                                },
+
+                                new ContentItem
+                                {
+                                    Content = "Test content"
+                                },
+                                new ContentItem
+                                {
+                                    Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu metus accumsan, fermentum dui interdum, faucibus ipsum. Aliquam eu libero eget elit feugiat dapibus. Etiam viverra venenatis diam, ut elementum elit. Phasellus laoreet est eget libero sollicitudin porta. Morbi a sem ultrices, sagittis tortor et, efficitur nulla. Curabitur placerat scelerisque sapien, scelerisque malesuada nisl viverra eu. Donec scelerisque scelerisque lobortis. Nulla ut magna maximus, bibendum erat in, blandit neque. Duis tincidunt maximus purus. Sed feugiat ligula nec velit sollicitudin tristique."
                                 }
-                            }
+                            },
+
                         }
                     }
 
@@ -177,7 +123,7 @@ namespace Tutoring.Models.Db
                     Nickname = "Fifok",
                     Password = "kamil123",
                     Birthdate = DateTime.Parse("1994-08-31"),
-                }, 
+                },
                 new User
                 {
                     Firstname = "Anna",

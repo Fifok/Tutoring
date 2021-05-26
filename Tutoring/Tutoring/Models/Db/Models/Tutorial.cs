@@ -15,6 +15,6 @@ namespace Tutoring.Models.Db.Models
         public int AuthorId { get; set; }
         public User Author { get; set; }
         public ICollection<TutorialTag> Tags { get; set; }
-        public ICollection<Page> Pages { get; set; }
+        public ICollection<ContentItem> Content { get; set; }
     }
 }
