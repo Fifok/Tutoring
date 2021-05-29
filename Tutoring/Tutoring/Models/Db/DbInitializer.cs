@@ -129,6 +129,7 @@ namespace Tutoring.Models.Db
                         {
                             Title = "Programowanko z ASP.NET Core",
                             Description = "Nauka programowania w ASP.NET Core dla opornych. Super zabawa",
+
                         }
                     }
                 },
@@ -157,10 +158,37 @@ namespace Tutoring.Models.Db
                 Tutoring = tut,
                 Student = x
             }).ToArray();
+           
 
             await context.Users.AddRangeAsync(users);
 
             await context.SaveChangesAsync();
+            tut.Lessons = new Lesson[]
+           {
+                new Lesson
+                {
+                    Title = "Wstęp",
+                    Description = "Prowadzanie do programowania w ASP.NET Core",
+                    Author = tut.Teacher,
+                    Content = new ContentItem[]
+                    {
+                        new ContentItem
+                        {
+                            Content = "Test lesson content",
+                             ContentType = ContentType.Text
+                        },
+                        new ContentItem
+                        {
+                            Content = "dori.jpg",
+                            ContentType = ContentType.Image
+                        },new ContentItem
+                        {
+                            Content = "Vestibulum a erat vitae turpis placerat aliquam. Praesent tempus eros a hendrerit eleifend. Maecenas sed consequat lectus. Cras tempus augue quis magna fringilla, sit amet condimentum velit tincidunt. Quisque malesuada lorem quis faucibus bibendum. Quisque egestas vestibulum lectus, vel euismod tortor consectetur in. Fusce finibus lacus a erat euismod, eget porta massa auctor. Pellentesque metus enim, tincidunt non tristique in, commodo vitae sapien. Maecenas vel euismod nisl.",
+                             ContentType = ContentType.Text
+                        }
+                    }
+                }
+           };
 
             var meeting = new Meeting
             {

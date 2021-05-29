@@ -118,6 +118,23 @@ namespace Tutoring.Db
 
             modelBuilder.Entity<Meeting>().ToTable("Meetings");
 
+            modelBuilder.Entity<TutoringModel>()
+                .HasMany(x => x.Lessons)
+                .WithOne(x => x.Tutoring)
+                .HasForeignKey(x => x.TutoringId);
+
+            modelBuilder.Entity<Lesson>()
+                .HasMany(x => x.Content)
+                .WithOne(x => x.Lesson)
+                .HasForeignKey(x => x.LessonId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.CreatedLessons)
+                .WithOne(x => x.Author)
+                .HasForeignKey(x => x.AuthorId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
         }
     }
 }

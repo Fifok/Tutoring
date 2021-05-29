@@ -16,5 +16,7 @@ namespace Tutoring.Models.Db.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public ICollection<StudentTutoring> Students { get; set; }
         public ICollection<Meeting> Meetings { get; set; }
+        public ICollection<Lesson> Lessons { get; set; }
+
     }
 }

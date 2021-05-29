@@ -35,6 +35,7 @@ namespace Tutoring.Models.Db.Models
         public virtual ICollection<Comment> Comments { get; set; }
 
         public virtual ICollection<TutoringModel> CreatedTutorings { get; set; }
+        public virtual ICollection<Lesson> CreatedLessons { get; set; }
         public virtual ICollection<Meeting> CreatedMeetings { get; set; }
         public virtual ICollection<UserMeeting> ParticipateMeetings { get; set; }
         public virtual ICollection<StudentTutoring> ParticipateTutorings { get; set; }
