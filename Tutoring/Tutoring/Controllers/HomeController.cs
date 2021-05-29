@@ -38,7 +38,7 @@ namespace Tutoring.Controllers
                     Id = x.Id,
                     Author = new UserInfoViewModel { Fullname = x.Teacher.Fullname, Nickname = x.Teacher.Nickname },
                     Title = x.Title,
-                    Description = x.Description
+                    Description = x.Description.Substring(0,50)
                 }).ToArray()
             };
             return View(data);
