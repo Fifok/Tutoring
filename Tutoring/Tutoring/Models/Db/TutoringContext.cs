@@ -13,6 +13,7 @@ namespace Tutoring.Db
         public DbSet<User> Users { get; set; }
         public DbSet<Tutorial> Tutorials { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<TutoringModel> Tutorings { get; set; }
         public TutoringContext()
         {
         }
@@ -69,6 +70,32 @@ namespace Tutoring.Db
                 .WithOne(x => x.Author)
                 .HasForeignKey(x => x.AuthorId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.CreatedTutorings)
+                .WithOne(x => x.Teacher)
+                .HasForeignKey(x => x.TeacherId);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.ParticipateTutorings)
+                .WithOne(x => x.Student)
+                .HasForeignKey(x => x.StudentId);
+
+            modelBuilder.Entity<TutoringModel>()
+                .HasMany(x => x.Students)
+                .WithOne(x => x.Tutoring)
+                .HasForeignKey(x => x.TutoringId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<TutoringModel>()
+                .HasMany(x => x.Meetings)
+                .WithOne(x => x.Tutoring)
+                .HasForeignKey(x => x.TutoringId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<StudentTutoring>()
+                .HasKey(x => new { x.TutoringId, x.StudentId });
+
         }
     }
 }

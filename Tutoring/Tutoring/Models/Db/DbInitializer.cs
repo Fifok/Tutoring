@@ -123,6 +123,14 @@ namespace Tutoring.Models.Db
                     Nickname = "Fifok",
                     Password = "kamil123",
                     Birthdate = DateTime.Parse("1994-08-31"),
+                    CreatedTutorings = new TutoringModel[]
+                    {
+                        new TutoringModel
+                        {
+                            Title = "Programowanko z ASP.NET Core",
+                            Description = "Nauka programowania w ASP.NET Core dla opornych. Super zabawa",
+                        }
+                    }
                 },
                 new User
                 {
@@ -131,10 +139,28 @@ namespace Tutoring.Models.Db
                     Email = "anna@wp.com",
                     Password = "anna123",
                     Birthdate = DateTime.Parse("2005-03-14"),
+                     CreatedTutorings = new TutoringModel[]
+                    {
+                        new TutoringModel
+                        {
+                            Title = "Malowanie",
+                            Description = "Donec eleifend maximus eros in malesuada. Quisque sagittis ultricies turpis a porttitor. Maecenas ultricies, urna eget ultrices imperdiet, ligula ante cursus lorem, sed laoreet libero nisl at odio. Fusce et metus ac dolor posuere semper. Integer vel augue eget velit mollis fringilla ut at lectus. Proin cursus tellus at elit hendrerit, non posuere dui commodo. Quisque non convallis tellus. Nullam lorem purus, porta non tempor non, ullamcorper eget felis. Aenean dignissim egestas dui, in laoreet erat fermentum eu. Cras iaculis suscipit velit at convallis.",
+                        }
+                    }
                 },
             };
 
+            var students = users.Take(2);
+            var tut = users[2].CreatedTutorings.ElementAt(0);
+            tut.Students = students.Select(x => new StudentTutoring
+            {
+                Tutoring = tut,
+                Student = x
+            }).ToArray();
+           
+
             await context.Users.AddRangeAsync(users);
+
             await context.SaveChangesAsync();
         }
     }
