@@ -32,6 +32,13 @@ namespace Tutoring.Controllers
                     Author = new UserInfoViewModel { Fullname = x.Author.Fullname, Nickname = x.Author.Nickname },
                     Title = x.Title,
                     Description = x.Description
+                }).ToArray(),
+                Tutorings = _context.Tutorings.Select(x => new TutoringListItemViewModel
+                {
+                    Id = x.Id,
+                    Author = new UserInfoViewModel { Fullname = x.Teacher.Fullname, Nickname = x.Teacher.Nickname },
+                    Title = x.Title,
+                    Description = x.Description
                 }).ToArray()
             };
             return View(data);

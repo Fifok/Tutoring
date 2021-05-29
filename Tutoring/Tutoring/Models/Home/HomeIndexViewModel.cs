@@ -8,5 +8,6 @@ namespace Tutoring.Models
     public class HomeIndexViewModel
     {
         public ICollection<TutorialListItemViewModel> Tutorials { get; set; }
+        public ICollection<TutoringListItemViewModel> Tutorings { get; set; }
     }
 }
