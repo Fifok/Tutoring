@@ -20,14 +20,20 @@ namespace Tutoring.Controllers
         }
         public IActionResult Index(int id = 0)
         {
-            var tut = _context.Tutorings.Include(x=>x.Teacher).FirstOrDefault(x => x.Id == id);
+            var tut = _context.Tutorings.Include(x=>x.Teacher).Include(x=>x.Lessons).FirstOrDefault(x => x.Id == id);
             if (tut != null)
             {
                 return View(new Models.TutoringVM.IndexViewModel
                 {
                     Title = tut.Title,
                     Teacher = new UserInfoViewModel { Nickname = tut.Teacher.Nickname, Fullname = tut.Teacher.Fullname },
-                    Description = tut.Description
+                    Description = tut.Description,
+                    Lessons = tut.Lessons?.Select(x=>new LessonListItemViewModel
+                    {
+                        Id = x.Id,
+                        Author = new UserInfoViewModel { Fullname = x.Author.Fullname, Nickname = x.Author.Nickname },
+                        Title = x.Title
+                    })
                 });
             }
             return BadRequest($"Wrong id: {id}");
