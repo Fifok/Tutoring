@@ -16,15 +16,19 @@ using Tutoring.Models.TutorialM;
 using TutoringLib;
 using DynamicVML;
 using DynamicVML.Extensions;
+using System.IO;
+using Microsoft.Extensions.Hosting;
 
 namespace Tutoring.Controllers
 {
     public class TutorialController : Controller
     {
+        private readonly IHostEnvironment _env;
         private readonly TutoringContext _context;
 
-        public TutorialController(TutoringContext context)
+        public TutorialController(TutoringContext context, IHostEnvironment environment)
         {
+            _env = environment;
             _context = context;
         }
         public IActionResult Index(int? id, int pageNumber = 1)
@@ -74,7 +78,7 @@ namespace Tutoring.Controllers
         [Authorize]
         public IActionResult Add()
         {
-           
+
             return View(new AddViewModel());
         }
 
@@ -88,10 +92,28 @@ namespace Tutoring.Controllers
                 {
                     Title = model.Title,
                     Description = model.Description,
-                    Content = model.Content.Select(x => new ContentItem
+                    Content = model.Content.Select(x =>
                     {
-                        Content = x.ViewModel.Content,
-                        ContentType = x.ViewModel.ContentType
+                        var item = new ContentItem
+                        {
+                            ContentType = x.ViewModel.ContentType
+                        };
+                        switch (item.ContentType)
+                        {
+                            case ContentType.Text:
+                                item.Content = x.ViewModel.Content;
+                                break;
+                            case ContentType.Image:
+                                item.Content = x.ViewModel.Image.FileName;
+                                using (var fs = new FileStream(Path.Combine(_env.ContentRootPath, "images", item.Content), FileMode.Create))
+                                {
+                                    x.ViewModel.Image.CopyTo(fs);
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        return item;
                     }).ToArray(),
                     Author = _context.Users.FirstOrDefault(x => x.Email == HttpContext.User.Identities.First().FindFirst(ClaimTypes.Email).Value)
                 };
