@@ -157,11 +157,28 @@ namespace Tutoring.Models.Db
                 Tutoring = tut,
                 Student = x
             }).ToArray();
-           
 
             await context.Users.AddRangeAsync(users);
 
             await context.SaveChangesAsync();
+
+            var meeting = new Meeting
+            {
+                Description = "Testowe spotkanie",
+                Author = tut.Teacher,
+                Tutoring = tut,
+                Date = DateTime.Now.AddDays(7),
+            };
+
+            meeting.Users = students.Select(x => new UserMeeting
+            {
+                User = x,
+                Meeting = meeting
+            }).ToArray();
+
+            await context.Meetings.AddAsync(meeting);
+            await context.SaveChangesAsync();
+
         }
     }
 }

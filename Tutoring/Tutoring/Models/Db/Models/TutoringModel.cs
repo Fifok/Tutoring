@@ -15,7 +15,6 @@ namespace Tutoring.Models.Db.Models
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public ICollection<StudentTutoring> Students { get; set; }
-        [NotMapped]
         public ICollection<Meeting> Meetings { get; set; }
     }
 }

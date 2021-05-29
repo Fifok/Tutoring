@@ -12,8 +12,9 @@ namespace Tutoring.Db
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Tutorial> Tutorials { get; set; }
-        public DbSet<Comment> Comments { get; set; }
         public DbSet<TutoringModel> Tutorings { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Meeting> Meetings { get; set; }
         public TutoringContext()
         {
         }
@@ -95,6 +96,27 @@ namespace Tutoring.Db
 
             modelBuilder.Entity<StudentTutoring>()
                 .HasKey(x => new { x.TutoringId, x.StudentId });
+
+            modelBuilder.Entity<Meeting>()
+                .HasOne(x => x.Author)
+                .WithMany(x => x.CreatedMeetings)
+                .HasForeignKey(x => x.AuthorId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<Meeting>()
+                .HasMany(x => x.Users)
+                .WithOne(x => x.Meeting)
+                .HasForeignKey(x => x.MeetingId);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.ParticipateMeetings)
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId);
+
+            modelBuilder.Entity<UserMeeting>()
+                .HasKey(x => new { x.UserId, x.MeetingId });
+
+            modelBuilder.Entity<Meeting>().ToTable("Meetings");
 
         }
     }
