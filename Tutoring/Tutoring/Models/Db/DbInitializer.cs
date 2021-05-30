@@ -158,7 +158,7 @@ namespace Tutoring.Models.Db
                 Tutoring = tut,
                 Student = x
             }).ToArray();
-           
+
 
             await context.Users.AddRangeAsync(users);
 
@@ -175,16 +175,19 @@ namespace Tutoring.Models.Db
                         new ContentItem
                         {
                             Content = "Test lesson content",
-                             ContentType = ContentType.Text
+                            ContentType = ContentType.Text,
+                            Index = 1
                         },
                         new ContentItem
                         {
                             Content = "dori.jpg",
-                            ContentType = ContentType.Image
+                            ContentType = ContentType.Image,
+                            Index = 2
                         },new ContentItem
                         {
                             Content = "Vestibulum a erat vitae turpis placerat aliquam. Praesent tempus eros a hendrerit eleifend. Maecenas sed consequat lectus. Cras tempus augue quis magna fringilla, sit amet condimentum velit tincidunt. Quisque malesuada lorem quis faucibus bibendum. Quisque egestas vestibulum lectus, vel euismod tortor consectetur in. Fusce finibus lacus a erat euismod, eget porta massa auctor. Pellentesque metus enim, tincidunt non tristique in, commodo vitae sapien. Maecenas vel euismod nisl.",
-                             ContentType = ContentType.Text
+                            ContentType = ContentType.Text,
+                            Index = 3
                         }
                     },
                     Index = 1
@@ -199,16 +202,21 @@ namespace Tutoring.Models.Db
                         new ContentItem
                         {
                             Content = "Test lesson content controller",
-                             ContentType = ContentType.Text
+                            ContentType = ContentType.Text,
+                            Index = 1
+
                         },
                         new ContentItem
                         {
                             Content = "dori2.png",
-                            ContentType = ContentType.Image
+                            ContentType = ContentType.Image,
+                            Index = 2
+
                         },new ContentItem
                         {
                             Content = "Vestibulum a erat vitae turpis placerat aliquam. Praesent tempus eros a hendrerit eleifend. Maecenas sed consequat lectus. Cras tempus augue quis magna fringilla, sit amet condimentum velit tincidunt. Quisque malesuada lorem quis faucibus bibendum. Quisque egestas vestibulum lectus, vel euismod tortor consectetur in. Fusce finibus lacus a erat euismod, eget porta massa auctor. Pellentesque metus enim, tincidunt non tristique in, commodo vitae sapien. Maecenas vel euismod nisl.",
-                             ContentType = ContentType.Text
+                            ContentType = ContentType.Text,
+                            Index = 3
                         }
                     },
                     Index = 2

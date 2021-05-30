@@ -10,6 +10,7 @@
         public Lesson Lesson { get; set; }
         public string Content { get; set; }
         public ContentType ContentType { get; set; }
+        public int Index { get; set; }
     }
     
     public enum ContentType
