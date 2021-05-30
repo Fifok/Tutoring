@@ -32,29 +32,36 @@ namespace Tutoring.Controllers
                     {
                         Id = x.Id,
                         Author = new UserInfoViewModel { Fullname = x.Author.Fullname, Nickname = x.Author.Nickname },
-                        Title = x.Title
+                        Title = x.Title,
+                        Index = x.Index
                     })
                 });
             }
             return BadRequest($"Wrong id: {id}");
         }
 
-        public IActionResult Lesson(int tutoringId, int id)
+        public IActionResult Lesson(int tutoringId, int lessonId)
         {
             var lesson = _context.Tutorings
                 .Include(x=>x.Lessons).ThenInclude(x=>x.Author)
                 .Include(x=>x.Lessons).ThenInclude(x=>x.Content)
                 .FirstOrDefault(x => x.Id == tutoringId)
-                .Lessons.FirstOrDefault(x => x.Index == id);
-            if(lesson != null)
+                .Lessons.FirstOrDefault(x => x.Index == lessonId);
+
+            var totalLessonNumber = _context.Tutorings.FirstOrDefault(x => x.Id == tutoringId)?.Lessons.Count();
+
+            if (lesson != null)
             {
                 return View(new LessonViewModel
                 {
                     Title = lesson.Title,
-                    Content = lesson.Content
+                    Content = lesson.Content.OrderBy(x=>x.Index)
                         .Select(x=>new ContentItemViewModel { Content = x.Content,ContentType = x.ContentType}).ToArray(),
                     Description = lesson.Description,
-                    Author = new UserInfoViewModel { Fullname = lesson.Author.Fullname, Nickname = lesson.Author.Nickname }
+                    Author = new UserInfoViewModel { Fullname = lesson.Author.Fullname, Nickname = lesson.Author.Nickname },
+                    Index = lesson.Index,
+                    CurrentLesson = lessonId,
+                    TotalLessonNumber = totalLessonNumber.HasValue ? totalLessonNumber.Value : 0
                 });
             }
 

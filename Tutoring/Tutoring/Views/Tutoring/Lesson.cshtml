@@ -22,31 +22,36 @@
             @Html.DisplayFor(model => model.Author.Fullname)
         </dd>
     </dl>
-    @foreach (var content in Model.Content)
-    {
-        switch (content.ContentType)
+    <div class="row flex-column">
+        @foreach (var content in Model.Content)
         {
-            case Tutoring.Models.Db.Models.ContentType.Text:
-                <p>@content.Content</p>
-                break;
-            case Tutoring.Models.Db.Models.ContentType.Image:
-                <img src="~/images/@(content.Content)" />
-                break;
-            default:
-                break;
+            switch (content.ContentType)
+            {
+                case Tutoring.Models.Db.Models.ContentType.Text:
+                    <p>@content.Content</p>
+                    break;
+                case Tutoring.Models.Db.Models.ContentType.Image:
+                    <img class="mx-auto my-2" src="~/images/@(content.Content)" />
+                    break;
+                default:
+                    break;
+            }
         }
-    }
-    @*<div id="page">
-            <partial name="_PageDisplayPartial" model="@Model.Page" />
-        </div>*@
+    </div>
 
-    @*<div class="my-5 ">
-            <paging  class-paging-control-div="col-8" class-info-div="col-4 text-right" page-no="@Model.CurrentPageNumber"
+    <div class="flex-column align-items-center">
+        <div class="mt-5">
+            <paging class-paging-control-div="col" class-paging-control="pagination justify-content-center" page-no="@Model.CurrentLesson"
                     page-size="1"
-                    total-records="@Model.TotalPageNumber"
-                    query-string-key-page-no="pageNumber"
+                    total-records="@Model.TotalLessonNumber"
+                    query-string-key-page-no="lessonId"
                     show-page-size-nav="false"
-                    show-total-records="false">
+                    show-total-records="false"
+                    show-total-pages="false">
             </paging>
-        </div>*@
+        </div>
+        <div class="row justify-content-center">
+            <a class="btn btn-sm btn-secondary" asp-controller="Tutoring" asp-action="Index" asp-route-id="@Context.Request.Query["tutoringId"]">Back to Tutoring</a>
+        </div>
+    </div>
 </div>

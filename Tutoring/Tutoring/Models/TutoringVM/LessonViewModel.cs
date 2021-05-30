@@ -11,5 +11,8 @@ namespace Tutoring.Models.TutoringVM
         public string Description { get; set; }
         public UserInfoViewModel Author { get; set; }
         public ICollection<ContentItemViewModel> Content { get; set; }
+        public int Index { get; set; }
+        public int CurrentLesson { get; set; }
+        public int TotalLessonNumber { get; set; }
     }
 }
