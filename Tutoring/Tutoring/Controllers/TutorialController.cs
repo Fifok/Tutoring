@@ -78,7 +78,6 @@ namespace Tutoring.Controllers
         [Authorize]
         public IActionResult Add()
         {
-
             return View(new AddViewModel());
         }
 
