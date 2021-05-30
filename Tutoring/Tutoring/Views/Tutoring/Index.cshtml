@@ -25,13 +25,13 @@
 
     @if (Model.Lessons != null && Model.Lessons.Count() > 0)
     {
-        <div class="col m-1 my-5 bg-warning bg-gradient rounded justify-content-center">
+        <div class="row flex-column m-1 my-5 bg-warning bg-gradient rounded justify-content-center">
             <h4 class="row justify-content-center py-3">Lessons</h4>
-            @*@if (Context.User.Identity.IsAuthenticated)
+            @if (Context.User.Identity.IsAuthenticated)
                 {
-                    <a class="btn btn-sm btn-primary mx-auto" asp-controller="Tutorial" asp-action="Add">New Tutorial</a>
-                }*@
-            <div class="row justify-content-center">
+                    <a class="btn btn-sm btn-warning" asp-controller="Tutoring" asp-action="AddLesson">New Lesson</a>
+                }
+            <div class="row justify-content-center mx-1">
                 <div class="col">
                     <div class="list-group rounded my-3">
                         @for (int i = 0; i < Model.Lessons.Count(); i++)
