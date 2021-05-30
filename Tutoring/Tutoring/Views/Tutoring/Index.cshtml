@@ -37,7 +37,7 @@
                         @for (int i = 0; i < Model.Lessons.Count(); i++)
                         {
                             var lesson = Model.Lessons.ElementAt(i);
-                            <a asp-action="lesson" asp-controller="Tutoring" asp-route-id="@lesson.Id" asp-route-tutoringId="@Context.Request.Query["tutoringId"]" class="list-group-item list-group-item-action list-group-item-warning text-center">
+                            <a asp-action="lesson" asp-controller="Tutoring" asp-route-id="@lesson.Id" asp-route-tutoringId="@Context.Request.RouteValues["id"]" class="list-group-item list-group-item-action list-group-item-warning text-center">
                                 <div class="row">
                                     <div class="col-1">@($"{i+1}.")</div>
                                     <div class="col-8">@lesson.Title</div>

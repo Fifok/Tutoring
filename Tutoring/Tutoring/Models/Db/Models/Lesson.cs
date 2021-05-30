@@ -15,5 +15,6 @@ namespace Tutoring.Models.Db.Models
         public int TutoringId { get; set; }
         public TutoringModel Tutoring { get; set; }
         public ICollection<ContentItem> Content { get; set; }
+        public int Index { get; set; }
     }
 }

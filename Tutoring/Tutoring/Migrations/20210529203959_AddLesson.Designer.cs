@@ -10,7 +10,7 @@ using Tutoring.Db;
 namespace Tutoring.Migrations
 {
     [DbContext(typeof(TutoringContext))]
-    [Migration("20210529200425_AddLesson")]
+    [Migration("20210529203959_AddLesson")]
     partial class AddLesson
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,6 +84,9 @@ namespace Tutoring.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Index")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");

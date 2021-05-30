@@ -33,7 +33,8 @@ namespace Tutoring.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AuthorId = table.Column<int>(type: "int", nullable: false),
-                    TutoringId = table.Column<int>(type: "int", nullable: false)
+                    TutoringId = table.Column<int>(type: "int", nullable: false),
+                    Index = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -28,7 +28,7 @@ namespace Tutoring.Controllers
                     Title = tut.Title,
                     Teacher = new UserInfoViewModel { Nickname = tut.Teacher.Nickname, Fullname = tut.Teacher.Fullname },
                     Description = tut.Description,
-                    Lessons = tut.Lessons?.Select(x=>new LessonListItemViewModel
+                    Lessons = tut.Lessons?.OrderBy(x=>x.Index).Select(x=>new LessonListItemViewModel
                     {
                         Id = x.Id,
                         Author = new UserInfoViewModel { Fullname = x.Author.Fullname, Nickname = x.Author.Nickname },
@@ -37,6 +37,28 @@ namespace Tutoring.Controllers
                 });
             }
             return BadRequest($"Wrong id: {id}");
+        }
+
+        public IActionResult Lesson(int tutoringId, int id)
+        {
+            var lesson = _context.Tutorings
+                .Include(x=>x.Lessons).ThenInclude(x=>x.Author)
+                .Include(x=>x.Lessons).ThenInclude(x=>x.Content)
+                .FirstOrDefault(x => x.Id == tutoringId)
+                .Lessons.FirstOrDefault(x => x.Index == id);
+            if(lesson != null)
+            {
+                return View(new LessonViewModel
+                {
+                    Title = lesson.Title,
+                    Content = lesson.Content
+                        .Select(x=>new ContentItemViewModel { Content = x.Content,ContentType = x.ContentType}).ToArray(),
+                    Description = lesson.Description,
+                    Author = new UserInfoViewModel { Fullname = lesson.Author.Fullname, Nickname = lesson.Author.Nickname }
+                });
+            }
+
+            return BadRequest();
         }
     }
 }

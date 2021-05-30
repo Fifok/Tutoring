@@ -1,0 +1,52 @@
+﻿@model Tutoring.Models.TutoringVM.LessonViewModel
+
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h2 class="text-center">@Model.Title</h2>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Author.Fullname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Author.Fullname)
+        </dd>
+    </dl>
+    @foreach (var content in Model.Content)
+    {
+        switch (content.ContentType)
+        {
+            case Tutoring.Models.Db.Models.ContentType.Text:
+                <p>@content.Content</p>
+                break;
+            case Tutoring.Models.Db.Models.ContentType.Image:
+                <img src="~/images/@(content.Content)" />
+                break;
+            default:
+                break;
+        }
+    }
+    @*<div id="page">
+            <partial name="_PageDisplayPartial" model="@Model.Page" />
+        </div>*@
+
+    @*<div class="my-5 ">
+            <paging  class-paging-control-div="col-8" class-info-div="col-4 text-right" page-no="@Model.CurrentPageNumber"
+                    page-size="1"
+                    total-records="@Model.TotalPageNumber"
+                    query-string-key-page-no="pageNumber"
+                    show-page-size-nav="false"
+                    show-total-records="false">
+            </paging>
+        </div>*@
+</div>

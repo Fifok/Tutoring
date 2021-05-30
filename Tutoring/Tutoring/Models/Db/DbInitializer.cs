@@ -186,7 +186,32 @@ namespace Tutoring.Models.Db
                             Content = "Vestibulum a erat vitae turpis placerat aliquam. Praesent tempus eros a hendrerit eleifend. Maecenas sed consequat lectus. Cras tempus augue quis magna fringilla, sit amet condimentum velit tincidunt. Quisque malesuada lorem quis faucibus bibendum. Quisque egestas vestibulum lectus, vel euismod tortor consectetur in. Fusce finibus lacus a erat euismod, eget porta massa auctor. Pellentesque metus enim, tincidunt non tristique in, commodo vitae sapien. Maecenas vel euismod nisl.",
                              ContentType = ContentType.Text
                         }
-                    }
+                    },
+                    Index = 1
+                },
+                new Lesson
+                {
+                    Title = "Kontroler",
+                    Description = "Omówienie zagadnień związanych z kontrolerami",
+                    Author = tut.Teacher,
+                    Content = new ContentItem[]
+                    {
+                        new ContentItem
+                        {
+                            Content = "Test lesson content controller",
+                             ContentType = ContentType.Text
+                        },
+                        new ContentItem
+                        {
+                            Content = "dori2.png",
+                            ContentType = ContentType.Image
+                        },new ContentItem
+                        {
+                            Content = "Vestibulum a erat vitae turpis placerat aliquam. Praesent tempus eros a hendrerit eleifend. Maecenas sed consequat lectus. Cras tempus augue quis magna fringilla, sit amet condimentum velit tincidunt. Quisque malesuada lorem quis faucibus bibendum. Quisque egestas vestibulum lectus, vel euismod tortor consectetur in. Fusce finibus lacus a erat euismod, eget porta massa auctor. Pellentesque metus enim, tincidunt non tristique in, commodo vitae sapien. Maecenas vel euismod nisl.",
+                             ContentType = ContentType.Text
+                        }
+                    },
+                    Index = 2
                 }
            };
 
