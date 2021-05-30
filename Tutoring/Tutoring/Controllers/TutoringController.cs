@@ -32,7 +32,7 @@ namespace Tutoring.Controllers
         {
             var tut = _context.Tutorings
                 .Include(x => x.Teacher)
-                .Include(x => x.Lessons).ThenInclude(x=>x.Author)
+                .Include(x => x.Lessons).ThenInclude(x => x.Author)
                 .FirstOrDefault(x => x.Id == id);
             if (tut != null)
             {
@@ -69,7 +69,7 @@ namespace Tutoring.Controllers
                 {
                     Title = lesson.Title,
                     Content = lesson.Content.OrderBy(x => x.Index)
-                        .Select(x => new ContentItemViewModel { Content = x.Content, ContentType = x.ContentType }).ToArray(),
+                        .Select(x => new ContentDisplayItemViewModel { Content = x.Content, ContentType = x.ContentType }).ToArray(),
                     Description = lesson.Description,
                     Author = new UserInfoViewModel { Fullname = lesson.Author.Fullname, Nickname = lesson.Author.Nickname },
                     Index = lesson.Index,
@@ -92,7 +92,7 @@ namespace Tutoring.Controllers
         {
             if (ModelState.IsValid)
             {
-                var tutoring = await _context.Tutorings.Include(x=>x.Lessons).FirstOrDefaultAsync(x => x.Id == tutoringId);
+                var tutoring = await _context.Tutorings.Include(x => x.Lessons).FirstOrDefaultAsync(x => x.Id == tutoringId);
                 var author = _context.Users.FirstOrDefault(x => x.Email == HttpContext.User.Identities.First().FindFirst(ClaimTypes.Email).Value);
                 var newLesson = new Lesson
                 {
@@ -111,10 +111,15 @@ namespace Tutoring.Controllers
                                 break;
                             case ContentType.Image:
                                 item.Content = x.ViewModel.Image.FileName;
-                                using (var fs = new FileStream(Path.Combine(_env.ContentRootPath, "images", item.Content), FileMode.Create))
+                                //using (var fs = new FileStream(Path.Combine(_env.ContentRootPath,"wwwroot", "images", item.Content), FileMode.Create))
+                                //{
+                                //    x.ViewModel.Image.CopyTo(fs);
+                                //}
+                                using (var stream = System.IO.File.Create(Path.Combine(_env.ContentRootPath,"wwwroot", "images", item.Content)))
                                 {
-                                    x.ViewModel.Image.CopyTo(fs);
+                                    x.ViewModel.Image.CopyTo(stream);
                                 }
+
                                 break;
                             default:
                                 break;
@@ -126,20 +131,24 @@ namespace Tutoring.Controllers
                 };
                 tutoring.Lessons.Add(newLesson);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Tutoring",new { id = tutoringId});
+                return RedirectToAction("Index", "Tutoring", new { id = tutoringId });
             }
             return View(model);
         }
 
         [Authorize]
-        public async Task<IActionResult> AddContent(AddNewDynamicItem parameters)
+        public async Task<IActionResult> AddText(AddNewDynamicItem parameters)
         {
-            ViewBag.ContentTypes = new SelectListItem[]
-           {
-                new SelectListItem {Value = ContentType.Text.ToString(), Text = ContentType.Text.ToString() },
-                new SelectListItem {Value = ContentType.Image.ToString(), Text = ContentType.Image.ToString() },
-           };
             var content = new ContentItemViewModel();
+            content.ContentType = ContentType.Text;
+            return this.PartialView(content, parameters);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> AddImage(AddNewDynamicItem parameters)
+        {
+            var content = new ContentItemViewModel();
+            content.ContentType = ContentType.Image;
             return this.PartialView(content, parameters);
         }
 

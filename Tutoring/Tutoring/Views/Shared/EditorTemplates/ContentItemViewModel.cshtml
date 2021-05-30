@@ -1,13 +1,13 @@
-﻿@model ContentItemViewModel
+﻿@*@model ContentItemViewModel
 <input type="hidden" asp-for="Id" />
 <div class="form-group">
     <label asp-for="ContentType" class="control-label"></label>
-    <select id="typeSelect" asp-for="ContentType" asp-items="ViewBag.ContentTypes" class="typeSelect form-control">
+    <select asp-for="ContentType" asp-items="ViewBag.ContentTypes" class="typeSelect form-control">
         <option value="">--Select type---</option>
     </select>
     <span asp-validation-for="ContentType" class="text-danger"></span>
 </div>
-<div style="display: none" id="textInput"class="form-group">
+<div style="display:none" id="textInput" class="form-group">
     <label asp-for="Content" class="control-label"></label>
     <textarea asp-for="Content" class="form-control"></textarea>
     <span asp-validation-for="Content" class="text-danger"></span>
@@ -20,11 +20,10 @@
     </div>
     <span asp-validation-for="Content" class="text-danger"></span>
 </div>
-
 <script>
     $(".typeSelect").change(function (e) {
         let html;
-        if(e.target.value == "Text") {
+        if (e.target.value == "Text") {
             $("#textInput").show();
             $("#fileInput").hide();
         } else {
@@ -32,5 +31,6 @@
             $("#fileInput").show();
         }
     })
-</script>
+</script>*@
+
 

@@ -1,0 +1,9 @@
+﻿@model ContentItemViewModel
+<input type="hidden" asp-for="Id" />
+<div id="fileInput" class="form-group">
+    <div class="custom-file">
+        <input type="file" asp-for="Image" class="custom-file-input" id="inputGroupFile03">
+        <label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+    </div>
+    <input hidden asp-for="ContentType" />
+</div>

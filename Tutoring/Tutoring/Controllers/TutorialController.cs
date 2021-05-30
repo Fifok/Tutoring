@@ -40,19 +40,20 @@ namespace Tutoring.Controllers
                 return NotFound();
             }
 
-            var data = new IndexViewModel
-            {
-                Title = tutorial.Title,
-                Description = tutorial.Description,
-                Author = new UserInfoViewModel { Fullname = tutorial.Author.Fullname, Nickname = tutorial.Author.Nickname },
-                Content = tutorial.Content.Select(x => new ContentItemViewModel
-                {
-                    Content = x.Content,
-                    ContentType = x.ContentType
-                }).ToArray()
-            };
+            //var data = new IndexViewModel
+            //{
+            //    Title = tutorial.Title,
+            //    Description = tutorial.Description,
+            //    Author = new UserInfoViewModel { Fullname = tutorial.Author.Fullname, Nickname = tutorial.Author.Nickname },
+            //    Content = tutorial.Content.Select(x => new ContentItemViewModel
+            //    {
+            //        Content = x.Content,
+            //        ContentType = x.ContentType
+            //    }).ToArray()
+            //};
 
-            return View(data);
+            //return View(data);
+            return Ok();
         }
 
         //public async Task<IActionResult> AjaxGetPageAsync(int id, int pageNumber)
@@ -87,37 +88,37 @@ namespace Tutoring.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newTutorial = new Tutorial
-                {
-                    Title = model.Title,
-                    Description = model.Description,
-                    Content = model.Content.Select(x =>
-                    {
-                        var item = new ContentItem
-                        {
-                            ContentType = x.ViewModel.ContentType
-                        };
-                        switch (item.ContentType)
-                        {
-                            case ContentType.Text:
-                                item.Content = x.ViewModel.Content;
-                                break;
-                            case ContentType.Image:
-                                item.Content = x.ViewModel.Image.FileName;
-                                using (var fs = new FileStream(Path.Combine(_env.ContentRootPath, "images", item.Content), FileMode.Create))
-                                {
-                                    x.ViewModel.Image.CopyTo(fs);
-                                }
-                                break;
-                            default:
-                                break;
-                        }
-                        return item;
-                    }).ToArray(),
-                    Author = _context.Users.FirstOrDefault(x => x.Email == HttpContext.User.Identities.First().FindFirst(ClaimTypes.Email).Value)
-                };
-                _context.Tutorials.Add(newTutorial);
-                await _context.SaveChangesAsync();
+                //var newTutorial = new Tutorial
+                //{
+                //    Title = model.Title,
+                //    Description = model.Description,
+                //    Content = model.Content.Select(x =>
+                //    {
+                //        var item = new ContentItem
+                //        {
+                //            ContentType = x.ViewModel.ContentType
+                //        };
+                //        switch (item.ContentType)
+                //        {
+                //            case ContentType.Text:
+                //                item.Content = x.ViewModel.Content;
+                //                break;
+                //            case ContentType.Image:
+                //                item.Content = x.ViewModel.Image.FileName;
+                //                using (var fs = new FileStream(Path.Combine(_env.ContentRootPath, "images", item.Content), FileMode.Create))
+                //                {
+                //                    x.ViewModel.Image.CopyTo(fs);
+                //                }
+                //                break;
+                //            default:
+                //                break;
+                //        }
+                //        return item;
+                //    }).ToArray(),
+                //    Author = _context.Users.FirstOrDefault(x => x.Email == HttpContext.User.Identities.First().FindFirst(ClaimTypes.Email).Value)
+                //};
+                //_context.Tutorials.Add(newTutorial);
+                //await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
             return View(model);
