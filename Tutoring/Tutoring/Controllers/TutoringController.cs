@@ -102,6 +102,7 @@ namespace Tutoring.Controllers
                     {
                         var item = new ContentItem
                         {
+                            
                             ContentType = x.ViewModel.ContentType
                         };
                         switch (item.ContentType)
@@ -110,16 +111,11 @@ namespace Tutoring.Controllers
                                 item.Content = x.ViewModel.Content;
                                 break;
                             case ContentType.Image:
-                                item.Content = x.ViewModel.Image.FileName;
-                                //using (var fs = new FileStream(Path.Combine(_env.ContentRootPath,"wwwroot", "images", item.Content), FileMode.Create))
-                                //{
-                                //    x.ViewModel.Image.CopyTo(fs);
-                                //}
-                                using (var stream = System.IO.File.Create(Path.Combine(_env.ContentRootPath,"wwwroot", "images", item.Content)))
+                                item.Content = $"{Guid.NewGuid()}{Path.GetExtension(x.ViewModel.Image.FileName)}";
+                                using (var stream = System.IO.File.Create(Path.Combine(_env.ContentRootPath,"wwwroot", "images",item.Content)))
                                 {
                                     x.ViewModel.Image.CopyTo(stream);
                                 }
-
                                 break;
                             default:
                                 break;
