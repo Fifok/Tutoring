@@ -12,7 +12,7 @@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 text-wrap text-truncate">
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt class="col-sm-2">
@@ -28,7 +28,7 @@
             switch (content.ContentType)
             {
                 case Tutoring.Models.Db.Models.ContentType.Text:
-                    <p>@content.Content</p>
+                    <p class="text-wrap">@content.Content</p>
                     break;
                 case Tutoring.Models.Db.Models.ContentType.Image:
                     <img class="mx-auto my-2" src="~/images/@(content.Content)" />
