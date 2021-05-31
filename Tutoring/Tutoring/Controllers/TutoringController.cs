@@ -33,6 +33,7 @@ namespace Tutoring.Controllers
             var tut = _context.Tutorings
                 .Include(x => x.Teacher)
                 .Include(x => x.Lessons).ThenInclude(x => x.Author)
+                .Include(x=>x.Students).ThenInclude(x=>x.Student)
                 .FirstOrDefault(x => x.Id == id);
             if (tut != null)
             {
@@ -47,7 +48,8 @@ namespace Tutoring.Controllers
                         Author = new UserInfoViewModel { Fullname = x.Author.Fullname, Nickname = x.Author.Nickname },
                         Title = x.Title,
                         Index = x.Index
-                    })
+                    }),
+                    Students = tut.Students.Select(x=>new UserInfoViewModel { Fullname = x.Student.Fullname, Nickname = x.Student.Nickname})
                 });
             }
             return BadRequest($"Wrong id: {id}");

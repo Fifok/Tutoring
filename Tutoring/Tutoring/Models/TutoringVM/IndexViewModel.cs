@@ -11,5 +11,6 @@ namespace Tutoring.Models.TutoringVM
         public string Description { get; set; }
         public UserInfoViewModel Teacher { get; set; }
         public IEnumerable<LessonListItemViewModel> Lessons { get; set; }
+        public IEnumerable<UserInfoViewModel> Students { get; set; }
     }
 }
