@@ -33,14 +33,14 @@ namespace Tutoring.Controllers
             var tut = _context.Tutorings
                 .Include(x => x.Teacher)
                 .Include(x => x.Lessons).ThenInclude(x => x.Author)
-                .Include(x=>x.Students).ThenInclude(x=>x.Student)
+                .Include(x => x.Students).ThenInclude(x => x.Student)
                 .FirstOrDefault(x => x.Id == id);
             if (tut != null)
             {
                 return View(new Models.TutoringVM.IndexViewModel
                 {
                     Title = tut.Title,
-                    Teacher = new UserInfoViewModel { Nickname = tut.Teacher.Nickname, Fullname = tut.Teacher.Fullname },
+                    Teacher = new UserInfoViewModel { Nickname = tut.Teacher.Nickname, Fullname = tut.Teacher.Fullname, Email = tut.Teacher.Email},
                     Description = tut.Description,
                     Lessons = tut.Lessons?.OrderBy(x => x.Index).Select(x => new LessonListItemViewModel
                     {
@@ -49,7 +49,7 @@ namespace Tutoring.Controllers
                         Title = x.Title,
                         Index = x.Index
                     }),
-                    Students = tut.Students.Select(x=>new UserInfoViewModel { Fullname = x.Student.Fullname, Nickname = x.Student.Nickname})
+                    Students = tut.Students.Select(x => new UserInfoViewModel { Fullname = x.Student.Fullname, Nickname = x.Student.Nickname })
                 });
             }
             return BadRequest($"Wrong id: {id}");
@@ -104,7 +104,7 @@ namespace Tutoring.Controllers
                     {
                         var item = new ContentItem
                         {
-                            
+
                             ContentType = x.ViewModel.ContentType
                         };
                         switch (item.ContentType)
@@ -114,7 +114,7 @@ namespace Tutoring.Controllers
                                 break;
                             case ContentType.Image:
                                 item.Content = $"{Guid.NewGuid()}{Path.GetExtension(x.ViewModel.Image.FileName)}";
-                                using (var stream = System.IO.File.Create(Path.Combine(_env.ContentRootPath,"wwwroot", "images",item.Content)))
+                                using (var stream = System.IO.File.Create(Path.Combine(_env.ContentRootPath, "wwwroot", "images", item.Content)))
                                 {
                                     x.ViewModel.Image.CopyTo(stream);
                                 }
@@ -148,6 +148,24 @@ namespace Tutoring.Controllers
             var content = new ContentItemViewModel();
             content.ContentType = ContentType.Image;
             return this.PartialView(content, parameters);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> ParticipateAsync(int id)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == HttpContext.User.FindFirstValue(ClaimTypes.Email));
+            if (user != null)
+            {
+                var tut = await _context.Tutorings.Include(x => x.Students).ThenInclude(x => x.Student).FirstOrDefaultAsync(x => x.Id == id);
+                if (!tut.Students.Any(x => x.StudentId == user.Id) && tut.Teacher != user)
+                {
+                    tut.Students.Add(new StudentTutoring { Student = user, Tutoring = tut });
+                    await _context.SaveChangesAsync();
+                }
+                return RedirectToAction("Index", new { id = id });
+            }
+            return Unauthorized();
         }
 
 

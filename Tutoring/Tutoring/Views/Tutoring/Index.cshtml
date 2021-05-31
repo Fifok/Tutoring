@@ -23,7 +23,13 @@
             </dd>
         </dl>
         <div class="col text-center">
-            <a class="btn btn-sm btn-primary">Participate</a>
+            @if (!Context.User.Identity.IsAuthenticated || 
+                Context.User.Identity.IsAuthenticated && Context.User.FindFirst(System.Security.Claims.ClaimTypes.Email).Value != Model.Teacher.Email)
+            {
+                <form asp-action="Participate" asp-route-id="@Context.Request.RouteValues["id"]">
+                    <button class="btn btn-sm btn-primary">Participate</button>
+                </form>
+            }
         </div>
     </div>
 
@@ -45,8 +51,8 @@
                            class="list-group-item list-group-item-action list-group-item-warning text-center">
                             <div class="row">
                                 <div class="col-1">@($"{i+1}.")</div>
-                                <div class="col-8">@lesson.Title</div>
-                                <div class="col-3">@lesson.Author.Fullname</div>
+                                <div class="col-9">@lesson.Title</div>
+                                <div class="col-2">@lesson.Author.Fullname</div>
                             </div>
                         </a>
                     }
