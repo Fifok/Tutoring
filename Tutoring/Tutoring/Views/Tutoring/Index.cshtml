@@ -23,16 +23,17 @@
         </dd>
     </dl>
 
-    @if (Model.Lessons != null && Model.Lessons.Count() > 0)
-    {
-        <div class="row flex-column m-1 my-5 bg-warning bg-gradient rounded align-content-center">
-            <h4 class="col-2 align-self-center text-center py-3">Lessons</h4>
-            @if (Context.User.Identity.IsAuthenticated)
-            {
-                <a class="col-2 align-self-center btn btn-sm btn-warning text-dark" asp-controller="Tutoring" asp-action="AddLesson" asp-route-tutoringId="@Context.Request.RouteValues["id"]">New Lesson</a>
-            }
-            <div class="col justify-content-center mx-1 my-3">
-                <div class="list-group rounded">
+
+    <div class="row flex-column m-1 my-5 bg-warning bg-gradient rounded align-content-center">
+        <h4 class="col-2 align-self-center text-center py-3">Lessons</h4>
+        @if (Context.User.Identity.IsAuthenticated && Context.User.FindFirst(System.Security.Claims.ClaimTypes.Name).Value == Model.Teacher.Fullname)
+        {
+            <a class="col-2 align-self-center btn btn-sm btn-warning text-dark" asp-controller="Tutoring" asp-action="AddLesson" asp-route-tutoringId="@Context.Request.RouteValues["id"]">New Lesson</a>
+        }
+        <div class="col justify-content-center mx-1 my-3">
+            <div class="list-group rounded">
+                @if (Model.Lessons != null && Model.Lessons.Count() > 0)
+                {
                     @for (int i = 0; i < Model.Lessons.Count(); i++)
                     {
                         var lesson = Model.Lessons.ElementAt(i);
@@ -45,10 +46,16 @@
                             </div>
                         </a>
                     }
-                </div>
+                }
+                else
+                {
+                    <div class="list-group-item list-group-item-warning text-center">
+                        <p>No lessons in this tutoring</p>    
+                    </div>
+                }
             </div>
         </div>
-    }
+    </div>
 
 </div>
 
