@@ -49,7 +49,7 @@ namespace Tutoring.Controllers
                         Title = x.Title,
                         Index = x.Index
                     }),
-                    Students = tut.Students.Select(x => new UserInfoViewModel { Fullname = x.Student.Fullname, Nickname = x.Student.Nickname })
+                    Students = tut.Students.Select(x => new UserInfoViewModel { Fullname = x.Student.Fullname, Nickname = x.Student.Nickname, Email = x.Student.Email })
                 });
             }
             return BadRequest($"Wrong id: {id}");

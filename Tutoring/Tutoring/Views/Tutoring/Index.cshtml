@@ -22,13 +22,25 @@
                 @Html.DisplayFor(model => model.Teacher.Fullname)
             </dd>
         </dl>
-        <div class="col text-center">
-            @if (!Context.User.Identity.IsAuthenticated || 
-                Context.User.Identity.IsAuthenticated && Context.User.FindFirst(System.Security.Claims.ClaimTypes.Email).Value != Model.Teacher.Email)
+        <div class="col d-flex text-center align-items-center justify-content-center">
+            @{
+                var user = Context?.User?.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+            }
+            @if (!Context.User.Identity.IsAuthenticated ||
+             user != Model.Teacher.Email)
             {
-                <form asp-action="Participate" asp-route-id="@Context.Request.RouteValues["id"]">
-                    <button class="btn btn-sm btn-primary">Participate</button>
-                </form>
+                if (!Model.Students.Any(x => x.Email == user))
+                {
+                    <form asp-action="Participate" asp-route-id="@Context.Request.RouteValues["id"]">
+                        <button class="btn btn-sm btn-primary">Participate</button>
+                    </form>
+                }
+                else
+                {
+                    <form asp-action="Participate" asp-route-id="@Context.Request.RouteValues["id"]">
+                        <button class="btn btn-sm btn-danger">Reject</button>
+                    </form>
+                }
             }
         </div>
     </div>
