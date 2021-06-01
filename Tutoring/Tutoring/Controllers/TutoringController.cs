@@ -167,7 +167,23 @@ namespace Tutoring.Controllers
             }
             return Unauthorized();
         }
-
-
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> RejectAsync(int id)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == HttpContext.User.FindFirstValue(ClaimTypes.Email));
+            if (user != null)
+            {
+                var tut = await _context.Tutorings.Include(x => x.Students).ThenInclude(x => x.Student).FirstOrDefaultAsync(x => x.Id == id);
+                if (tut.Students.Any(x => x.StudentId == user.Id))
+                {
+                    var student = tut.Students.FirstOrDefault(x => x.StudentId == user.Id);
+                    tut.Students.Remove(student);
+                    await _context.SaveChangesAsync();
+                }
+                return RedirectToAction("Index", new { id = id });
+            }
+            return Unauthorized();
+        }
     }
 }
