@@ -40,20 +40,19 @@ namespace Tutoring.Controllers
                 return NotFound();
             }
 
-            //var data = new IndexViewModel
-            //{
-            //    Title = tutorial.Title,
-            //    Description = tutorial.Description,
-            //    Author = new UserInfoViewModel { Fullname = tutorial.Author.Fullname, Nickname = tutorial.Author.Nickname },
-            //    Content = tutorial.Content.Select(x => new ContentItemViewModel
-            //    {
-            //        Content = x.Content,
-            //        ContentType = x.ContentType
-            //    }).ToArray()
-            //};
+            var data = new IndexViewModel
+            {
+                Title = tutorial.Title,
+                Description = tutorial.Description,
+                Author = new UserInfoViewModel { Fullname = tutorial.Author.Fullname, Nickname = tutorial.Author.Nickname },
+                Content = tutorial.Content.Select(x => new ContentDisplayItemViewModel
+                {
+                    Content = x.Content,
+                    ContentType = x.ContentType
+                }).ToArray()
+            };
 
-            //return View(data);
-            return Ok();
+            return View(data);
         }
 
         //public async Task<IActionResult> AjaxGetPageAsync(int id, int pageNumber)

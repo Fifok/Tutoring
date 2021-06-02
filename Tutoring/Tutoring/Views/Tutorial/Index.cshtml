@@ -6,7 +6,7 @@
 }
 
 <div>
-    <h4>Tutorial</h4>
+    <h2 class="text-center">Tutorial</h2>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -28,20 +28,24 @@
             @Html.DisplayFor(model => model.Author.Fullname)
         </dd>
     </dl>
-    @foreach (var content in Model.Content)
-    {
-        switch (content.ContentType)
+    
+    <div class="row flex-column">
+        @foreach (var content in Model.Content)
         {
-            case Tutoring.Models.Db.Models.ContentType.Text:
-                <p>@content.Content</p>
-                break;
-            case Tutoring.Models.Db.Models.ContentType.Image:
-                <img src="~/images/@(content.Content)" />
-                break;
-            default:
-                break;
+            switch (content.ContentType)
+            {
+                case Tutoring.Models.Db.Models.ContentType.Text:
+                    <p class="text-wrap">@content.Content</p>
+                    break;
+                case Tutoring.Models.Db.Models.ContentType.Image:
+                    <img class="mx-auto my-2" src="~/images/@(content.Content)" />
+                    break;
+                default:
+                    break;
+            }
         }
-    }
+    </div>
+
     @*<div id="page">
             <partial name="_PageDisplayPartial" model="@Model.Page" />
         </div>*@
@@ -55,4 +59,7 @@
                     show-total-records="false">
             </paging>
         </div>*@
+</div>
+<div class="row justify-content-center">
+    <a asp-action="Index" asp-controller="Home" class="my-4 btn btn-sm btn-secondary">Back to home</a>
 </div>
