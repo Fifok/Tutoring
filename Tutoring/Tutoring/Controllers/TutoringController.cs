@@ -40,7 +40,7 @@ namespace Tutoring.Controllers
                 return View(new Models.TutoringVM.IndexViewModel
                 {
                     Title = tut.Title,
-                    Teacher = new UserInfoViewModel { Nickname = tut.Teacher.Nickname, Fullname = tut.Teacher.Fullname, Email = tut.Teacher.Email},
+                    Teacher = new UserInfoViewModel { Nickname = tut.Teacher.Nickname, Fullname = tut.Teacher.Fullname, Email = tut.Teacher.Email },
                     Description = tut.Description,
                     Lessons = tut.Lessons?.OrderBy(x => x.Index).Select(x => new LessonListItemViewModel
                     {
@@ -55,13 +55,23 @@ namespace Tutoring.Controllers
             return BadRequest($"Wrong id: {id}");
         }
 
+        [Authorize]
         public IActionResult Lesson(int tutoringId, int lessonId)
         {
-            var lesson = _context.Tutorings
+            var user = _context.Users.FirstOrDefault(x => x.Email == HttpContext.User.FindFirst(ClaimTypes.Email).Value);
+            var tutoring = _context.Tutorings
+                .Include(x=>x.Teacher)
+                .Include(x=>x.Students).ThenInclude(x=>x.Student)
                 .Include(x => x.Lessons).ThenInclude(x => x.Author)
                 .Include(x => x.Lessons).ThenInclude(x => x.Content)
-                .FirstOrDefault(x => x.Id == tutoringId)
-                .Lessons.FirstOrDefault(x => x.Index == lessonId);
+                .FirstOrDefault(x => x.Id == tutoringId);
+
+            if (!tutoring.Students.Any(x => x.Student == user) && !(user.Id == tutoring.Teacher.Id)) 
+            {
+                return Unauthorized("You cannot get to this lesson, sorry");
+            }
+
+            var lesson = tutoring.Lessons.FirstOrDefault(x => x.Index == lessonId);
 
             var totalLessonNumber = _context.Tutorings.FirstOrDefault(x => x.Id == tutoringId)?.Lessons.Count();
 
