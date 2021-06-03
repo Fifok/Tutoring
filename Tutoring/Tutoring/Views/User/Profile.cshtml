@@ -1,0 +1,65 @@
+﻿@model UserProfileViewModel
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Fullname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Fullname)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Birthdate)
+        </dt>
+        <dd class="col-sm-10">
+            @($"{Model.Birthdate.ToShortDateString()}\t({Model.Age}yo)")
+        </dd>
+    </dl>
+</div>
+@if (Model.CreatedTutorings.Count() > 0)
+{
+    <div class="col m-1 my-5 bg-primary bg-gradient rounded justify-content-center">
+        <h4 class="row justify-content-center py-3">Tutorings</h4>
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="list-group rounded my-3">
+                    @for (int i = 0; i < Model.CreatedTutorings.Count(); i++)
+                    {
+                        var tutoring = Model.CreatedTutorings.ElementAt(i);
+                        <a asp-action="Index" asp-controller="Tutoring" asp-route-id="@tutoring.Id" class="list-group-item list-group-item-action list-group-item-primary text-center">
+                            <div class="row">
+                                <div class="col-1">@($"{i+1}.")</div>
+                                <div class="col-3">@tutoring.Title</div>
+                                <div class="col-8 text-truncate">@tutoring.Description</div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (Model.CreatedTutorials.Count() > 0)
+{
+    <div class="col m-1 my-5 bg-info bg-gradient rounded justify-content-center">
+        <h4 class="row justify-content-center py-3">Tutorials</h4>
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="list-group rounded my-3">
+                    @for (int i = 0; i < Model.CreatedTutorials.Count(); i++)
+                    {
+                        var tutorial = Model.CreatedTutorials.ElementAt(i);
+                        <a asp-action="Index" asp-controller="Tutorial" asp-route-id="@tutorial.Id" class="list-group-item list-group-item-action list-group-item-info text-center">
+                            <div class="row">
+                                <div class="col-1">@($"{i+1}.")</div>
+                                <div class="col-3">@tutorial.Title</div>
+                                <div class="col-8 text-truncate">@tutorial.Description</div>
+                            </div>
+                        </a>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+}

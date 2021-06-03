@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,6 +96,34 @@ namespace Tutoring.Controllers
         {
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Profile(int id)
+        {
+            var user = _context.Users
+                .Include(x=>x.CreatedTutorials)
+                .Include(x=>x.CreatedTutorings)
+                .FirstOrDefault(x => x.Id == id);
+            var model = new UserProfileViewModel
+            {
+                Fullname = user.Fullname,
+                Nickname = user.Nickname,
+                Birthdate = user.Birthdate,
+                Age = user.Age,
+                CreatedTutorials = user.CreatedTutorials.Select(x => new TutorialListItemViewModel
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Description = x.Description
+                }),
+                CreatedTutorings = user.CreatedTutorings.Select(x => new TutoringListItemViewModel
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Description = x.Description
+                })
+            };
+            return View(model);
         }
     }
 }

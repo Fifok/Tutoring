@@ -29,16 +29,16 @@ namespace Tutoring.Controllers
                 Tutorials = _context.Tutorials.Select(x => new TutorialListItemViewModel
                 {
                     Id = x.Id,
-                    Author = new UserInfoViewModel { Fullname = x.Author.Fullname, Nickname = x.Author.Nickname },
+                    Author = new UserInfoViewModel { Id = x.Id, Fullname = x.Author.Fullname, Nickname = x.Author.Nickname },
                     Title = x.Title,
                     Description = x.Description
                 }).ToArray(),
                 Tutorings = _context.Tutorings.Select(x => new TutoringListItemViewModel
                 {
                     Id = x.Id,
-                    Author = new UserInfoViewModel { Fullname = x.Teacher.Fullname, Nickname = x.Teacher.Nickname },
+                    Author = new UserInfoViewModel { Id = x.Id, Fullname = x.Teacher.Fullname, Nickname = x.Teacher.Nickname },
                     Title = x.Title,
-                    Description = x.Description.Substring(0,50)
+                    Description = x.Description
                 }).ToArray()
             };
             return View(data);

@@ -87,51 +87,55 @@ namespace Tutoring.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var newTutorial = new Tutorial
-                //{
-                //    Title = model.Title,
-                //    Description = model.Description,
-                //    Content = model.Content.Select(x =>
-                //    {
-                //        var item = new ContentItem
-                //        {
-                //            ContentType = x.ViewModel.ContentType
-                //        };
-                //        switch (item.ContentType)
-                //        {
-                //            case ContentType.Text:
-                //                item.Content = x.ViewModel.Content;
-                //                break;
-                //            case ContentType.Image:
-                //                item.Content = x.ViewModel.Image.FileName;
-                //                using (var fs = new FileStream(Path.Combine(_env.ContentRootPath, "images", item.Content), FileMode.Create))
-                //                {
-                //                    x.ViewModel.Image.CopyTo(fs);
-                //                }
-                //                break;
-                //            default:
-                //                break;
-                //        }
-                //        return item;
-                //    }).ToArray(),
-                //    Author = _context.Users.FirstOrDefault(x => x.Email == HttpContext.User.Identities.First().FindFirst(ClaimTypes.Email).Value)
-                //};
-                //_context.Tutorials.Add(newTutorial);
-                //await _context.SaveChangesAsync();
+                var newTutorial = new Tutorial
+                {
+                    Title = model.Title,
+                    Description = model.Description,
+                    Content = model.Content.Select(x =>
+                    {
+                        var item = new ContentItem
+                        {
+                            ContentType = x.ViewModel.ContentType
+                        };
+                        switch (item.ContentType)
+                        {
+                            case ContentType.Text:
+                                item.Content = x.ViewModel.Content;
+                                break;
+                            case ContentType.Image:
+                                item.Content = x.ViewModel.Image.FileName;
+                                using (var fs = new FileStream(Path.Combine(_env.ContentRootPath, "images", item.Content), FileMode.Create))
+                                {
+                                    x.ViewModel.Image.CopyTo(fs);
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        return item;
+                    }).ToArray(),
+                    Author = _context.Users.FirstOrDefault(x => x.Email == HttpContext.User.Identities.First().FindFirst(ClaimTypes.Email).Value)
+                };
+                _context.Tutorials.Add(newTutorial);
+                await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
             return View(model);
         }
 
         [Authorize]
-        public async Task<IActionResult> AddContent(AddNewDynamicItem parameters)
+        public async Task<IActionResult> AddText(AddNewDynamicItem parameters)
         {
-            ViewBag.ContentTypes = new SelectListItem[]
-           {
-                new SelectListItem {Value = ContentType.Text.ToString(), Text = ContentType.Text.ToString() },
-                new SelectListItem {Value = ContentType.Image.ToString(), Text = ContentType.Image.ToString() },
-           };
             var content = new ContentItemViewModel();
+            content.ContentType = ContentType.Text;
+            return this.PartialView(content, parameters);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> AddImage(AddNewDynamicItem parameters)
+        {
+            var content = new ContentItemViewModel();
+            content.ContentType = ContentType.Image;
             return this.PartialView(content, parameters);
         }
     }

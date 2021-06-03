@@ -35,6 +35,7 @@ namespace Tutoring.Controllers
                 .Include(x => x.Lessons).ThenInclude(x => x.Author)
                 .Include(x => x.Students).ThenInclude(x => x.Student)
                 .FirstOrDefault(x => x.Id == id);
+
             if (tut != null)
             {
                 return View(new Models.TutoringVM.IndexViewModel
@@ -49,10 +50,32 @@ namespace Tutoring.Controllers
                         Title = x.Title,
                         Index = x.Index
                     }),
-                    Students = tut.Students.Select(x => new UserInfoViewModel { Fullname = x.Student.Fullname, Nickname = x.Student.Nickname, Email = x.Student.Email })
+                    Students = tut.Students.Select(x => new UserInfoViewModel { Id = x.Student.Id, Fullname = x.Student.Fullname, Nickname = x.Student.Nickname, Email = x.Student.Email })
                 });
             }
             return BadRequest($"Wrong id: {id}");
+        }
+
+        [Authorize]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddAsync(AddTutoringViewModel model)
+        {
+            var tutoring = new TutoringModel
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Teacher = _context.Users.FirstOrDefault(x=>x.Email == HttpContext.User.FindFirst(ClaimTypes.Email).Value)
+            };
+
+            _context.Tutorings.Add(tutoring);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", new {id= tutoring.Id});
         }
 
         [Authorize]
@@ -60,13 +83,13 @@ namespace Tutoring.Controllers
         {
             var user = _context.Users.FirstOrDefault(x => x.Email == HttpContext.User.FindFirst(ClaimTypes.Email).Value);
             var tutoring = _context.Tutorings
-                .Include(x=>x.Teacher)
-                .Include(x=>x.Students).ThenInclude(x=>x.Student)
+                .Include(x => x.Teacher)
+                .Include(x => x.Students).ThenInclude(x => x.Student)
                 .Include(x => x.Lessons).ThenInclude(x => x.Author)
                 .Include(x => x.Lessons).ThenInclude(x => x.Content)
                 .FirstOrDefault(x => x.Id == tutoringId);
 
-            if (!tutoring.Students.Any(x => x.Student == user) && !(user.Id == tutoring.Teacher.Id)) 
+            if (!tutoring.Students.Any(x => x.Student == user) && !(user.Id == tutoring.Teacher.Id))
             {
                 return Unauthorized("You cannot get to this lesson, sorry");
             }
