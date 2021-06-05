@@ -1,19 +1,17 @@
 ﻿@model Tutoring.Models.HomeIndexViewModel;
 
-@{
-    ViewData["Title"] = "Home Page";
-}
+
 
 <div class="text-center">
-    <h1 class="display-2">Welcome</h1>
-    <h2>to Tutoring</h2>
+    <h1 class="display-2">Witaj</h1>
+    <h2>w Tutoring</h2>
 </div>
 <div class="row flex-column m-1 my-5 bg-primary bg-gradient rounded justify-content-center">
-    <h4 class="col-2 align-self-center text-center py-3">Tutorings</h4>
+    <h4 class="col-2 align-self-center text-center py-3">Korepetycje</h4>
 
     @if (Context.User.Identity.IsAuthenticated)
     {
-        <a class="col-2 align-self-center btn btn-sm btn-info text-dark" asp-controller="Tutoring" asp-action="Add">New Tutoring</a>
+        <a class="col-2 align-self-center btn btn-sm btn-info text-dark" asp-controller="Tutoring" asp-action="Add">Nowa korepetycja</a>
     }
     <div class="col justify-content-center mx-1 my-3">
         <div class="list-group rounded">
@@ -33,10 +31,10 @@
     </div>
 </div>
 <div class="row flex-column  m-1 my-5 bg-info bg-gradient rounded justify-content-center">
-    <h4 class="col-2 align-self-center text-center py-3">Tutorials</h4>
+    <h4 class="col-2 align-self-center text-center py-3">Tutoriale</h4>
     @if (Context.User.Identity.IsAuthenticated)
     {
-        <a class="col-2 btn btn-sm btn-primary mx-auto" asp-controller="Tutorial" asp-action="Add">New Tutorial</a>
+        <a class="col-2 btn btn-sm btn-primary mx-auto" asp-controller="Tutorial" asp-action="Add">Nowy Tutorial</a>
     }
     <div class="col justify-content-center mx-1 my-3">
         <div class="list-group rounded">

@@ -22,23 +22,27 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
                     <div class="mr-sm-2">
                         @if (!Context.User.Identity.IsAuthenticated)
                         {
-                            <a class="btn btn-secondary" asp-controller="User" asp-action="Signup">Sign up</a>
-                            <a class="btn btn-info" asp-controller="User" asp-action="Login">Login</a>
+                            <a class="btn btn-secondary" asp-controller="User" asp-action="Signup">Zarejestruj</a>
+                            <a class="btn btn-info" asp-controller="User" asp-action="Login">Zaloguj</a>
                         }
                         else
                         {
                             <div class="d-sm-inline-flex ">
-                                <p class="text-info mx-4 my-0 align-self-center">@Context.User.Identity.Name</p>
-                                <a class="btn btn-secondary" asp-controller="User" asp-action="Signout">Sign out</a>
+                                <a 
+                                   asp-controller="User"
+                                   asp-action="Profile"
+                                   asp-route-id="@Context.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value">
+                                    <div class="btn text-info mx-4 my-0 align-self-center">
+                                        @Context.User.Identity.Name
+                                    </div>
+                                </a>
+                                <a class="btn btn-secondary" asp-controller="User" asp-action="Signout">Wyloguj</a>
                             </div>
                         }
                     </div>
@@ -53,10 +57,10 @@
     </div>
 
     @*<footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - Tutoring - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@
+            <div class="container">
+                &copy; 2021 - Tutoring - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

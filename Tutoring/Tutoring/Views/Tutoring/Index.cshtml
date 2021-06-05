@@ -1,6 +1,6 @@
 ﻿@model Tutoring.Models.TutoringVM.IndexViewModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -32,13 +32,13 @@
                 if (!Model.Students.Any(x => x.Email == user))
                 {
                     <form asp-action="Participate" asp-route-id="@Context.Request.RouteValues["id"]">
-                        <button class="btn btn-sm btn-primary">Participate</button>
+                        <button class="btn btn-sm btn-primary">Zapisz</button>
                     </form>
                 }
                 else
                 {
                     <form asp-action="Reject" asp-route-id="@Context.Request.RouteValues["id"]">
-                        <button class="btn btn-sm btn-danger">Reject</button>
+                        <button class="btn btn-sm btn-danger">Wypisz</button>
                     </form>
                 }
             }
@@ -47,10 +47,10 @@
 
 
     <div class="row flex-column m-1 my-5 bg-warning bg-gradient rounded align-content-center">
-        <h4 class="col-2 align-self-center text-center py-3">Lessons</h4>
+        <h4 class="col-2 align-self-center text-center py-3">Lekcje</h4>
         @if (Context.User.Identity.IsAuthenticated && Context.User.FindFirst(System.Security.Claims.ClaimTypes.Name).Value == Model.Teacher.Fullname)
         {
-            <a class="col-2 align-self-center btn btn-sm btn-warning text-dark" asp-controller="Tutoring" asp-action="AddLesson" asp-route-tutoringId="@Context.Request.RouteValues["id"]">New Lesson</a>
+            <a class="col-2 align-self-center btn btn-sm btn-warning text-dark" asp-controller="Tutoring" asp-action="AddLesson" asp-route-tutoringId="@Context.Request.RouteValues["id"]">Nowa lekcja</a>
         }
         <div class="col justify-content-center mx-1 my-3">
             <div class="list-group rounded">
@@ -72,14 +72,14 @@
                 else
                 {
                     <div class="list-group-item list-group-item-warning text-center">
-                        <p>No lessons in this tutoring</p>
+                        <p>Brak lekcji</p>
                     </div>
                 }
             </div>
         </div>
     </div>
     <div class="row flex-column m-1 my-5 bg-warning bg-gradient rounded align-content-center">
-        <h4 class="col-2 align-self-center text-center py-3">Students</h4>
+        <h4 class="col-2 align-self-center text-center py-3">Uczniowie</h4>
         @*@if (Context.User.Identity.IsAuthenticated && Context.User.FindFirst(System.Security.Claims.ClaimTypes.Name).Value == Model.Teacher.Fullname)
             {
                 <a class="col-2 align-self-center btn btn-sm btn-warning text-dark" asp-controller="Tutoring" asp-action="AddLesson" asp-route-tutoringId="@Context.Request.RouteValues["id"]">New Lesson</a>
@@ -104,7 +104,7 @@
                 else
                 {
                     <div class="list-group-item list-group-item-warning text-center">
-                        <p>No students</p>
+                        <p>Brak uczniów</p>
                     </div>
                 }
             </div>

@@ -2,11 +2,11 @@
 @using DynamicVML.Extensions
 
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Dodaj tutorial";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-center">Add Tutorial</h1>
+<h1 class="text-center">Dodaj tutorial</h1>
 <hr />
 <div class="row justify-content-center mt-5">
     <div class="col-md-4 text-center">
@@ -27,14 +27,14 @@
                 @Html.ListEditorFor(x => x.Content, Url.Action("AddText"), "Add text", itemTemplate: "TextItemViewModel")
             </div>
             <div class="form-group">
-                <input type="submit" value="Add tutorial" class="btn btn-primary" />
+                <input type="submit" value="Dodaj tutorial" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div class="text-center">
-    <a asp-action="Index" asp-controller="Home">Back</a> 
+    <a asp-action="Index" asp-controller="Home">Powrót</a> 
 </div>
 
 @section Scripts {
