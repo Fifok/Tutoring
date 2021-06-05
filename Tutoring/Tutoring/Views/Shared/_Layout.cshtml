@@ -33,15 +33,17 @@
                         }
                         else
                         {
-                            <div class="d-sm-inline-flex ">
-                                <a 
-                                   asp-controller="User"
-                                   asp-action="Profile"
-                                   asp-route-id="@Context.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value">
-                                    <div class="btn text-info mx-4 my-0 align-self-center">
-                                        @Context.User.Identity.Name
-                                    </div>
+                            <div class="d-sm-inline-flex nav-item dropdown">
+                                <a class="nav-link dropdown-toggle btn text-info mx-4 my-0 align-self-center" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @Context.User.Identity.Name
                                 </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-controller="User"
+                                       asp-action="Profile"
+                                       asp-route-id="@Context.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value">
+                                        Profil
+                                    </a>
+                                </div>
                                 <a class="btn btn-secondary" asp-controller="User" asp-action="Signout">Wyloguj</a>
                             </div>
                         }
